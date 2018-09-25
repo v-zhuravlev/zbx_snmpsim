@@ -31,7 +31,7 @@ For example:
 
 See `--help` for usage.
 
-### Ho to redefine host settings on creation
+### How to redefine host settings on creation
 Base templates depends on the filename. Some logic how template are choosen by default is defined here: `bin/snmpsim_rules.py#set_templates()`  
 
 //TODO:  
