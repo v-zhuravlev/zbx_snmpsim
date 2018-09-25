@@ -49,7 +49,7 @@ class SnmpsimRules():
             "net.alcatel":"Template Net Alcatel Timetra TiMOS SNMPv2",
             "net.extreme":"Template Net Extreme EXOS SNMPv2",
             "net.huawei.vrp":"Template Net Huawei VRP SNMPv2",
-            "net.dlink.72":"Template Net D-Link DES 7200 SNMPv2",
+            "net.dlink.des72":"Template Net D-Link DES 7200 SNMPv2",
             "net.dlink":"Template Net D-Link DES_DGS Switch SNMPv2",
             "net.qtech":"Template Net QTech QSW SNMPv2",
             "net.dell":"Template Net Dell Force S-Series SNMPv2",
