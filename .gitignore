@@ -106,3 +106,4 @@ venv.bak/
 #dirs with raw files
 raw
 unsorted
+data/private
