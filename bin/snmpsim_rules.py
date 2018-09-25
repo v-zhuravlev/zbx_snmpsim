@@ -5,6 +5,9 @@ from pyzabbix.api import ZabbixAPIException
 def get_hostname_from_path(path):
     return os.path.basename(os.path.splitext(path)[0])
 
+def get_snmp_community_from_path(path):
+    return os.path.splitext(path[2:].replace('\\','/'))[0]
+
 
 class SnmpsimRules():
     def __init__(self, zapi, params, path):
@@ -27,7 +30,7 @@ class SnmpsimRules():
     def set_snmp_community(self):
         macro = {
                 "macro": "{$SNMP_COMMUNITY}",
-                "value": get_hostname_from_path(self.path)
+                "value": get_snmp_community_from_path(self.path)
                 }
         self.params['macros'].append(macro)
             

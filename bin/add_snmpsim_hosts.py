@@ -6,6 +6,7 @@ from zabbix.api import ZabbixAPI
 from pyzabbix.api import ZabbixAPIException
 import snmpsim_rules
 import zabbix_cli
+import glob
 
 
 def prepare_interface(ip, dns, port):
@@ -31,7 +32,7 @@ def prepare_interface(ip, dns, port):
 
 def create_host(path, h_interface):
     """This creates snmpsim host in Zabbix"""
-    DISCOVERY_GROUP_ID = "5"
+    DISCOVERY_GROUP_ID = "5" #TODO make this configurable
 
     # prepare params
     params = {
@@ -81,19 +82,28 @@ def create_single_host(host, h_interface):
     create_host(host, h_interface)
 
 
-def import_dir_with_snmpsim_files(dirname, h_interface):
-    """This creates all hosts found in the directory"""
-    import glob
+def scan_dir_with_snmpsim_files(dirname):
+    """This finds all snmpsim snapshots in the directory"""
 
     hosts = []
     for file in glob.glob(dirname+'/*'+args.filter_str+"*.snmpwalk"):
         hosts.append(file)
     for file in glob.glob(dirname+'/*'+args.filter_str+"*.snmprec"):
         hosts.append(file)
+
+    return hosts
+
+
+def scan_snmpsim_root_dir(datadir):
+    """This scans snmpsim data dir recursively"""
+    os.chdir(datadir)
+    hosts = []
+    for root, _, _ in os.walk('.'):
+        hosts.extend(scan_dir_with_snmpsim_files(root))
+    hosts.sort()
     if len(hosts) == 0:
         sys.exit("No hosts found in the directory '{}' with filter: {}".format(
-            dirname, args.filter_str))
-    hosts.sort()
+            datadir, args.filter_str))
     for host in hosts:
         create_single_host(host, h_interface)
 
@@ -104,7 +114,7 @@ parser.add_argument('--filter', '-f', dest='filter_str',
                     help="imports only files in directory that contain chars in the filenames.",
                     required=False, type=str, default='')
 parser.add_argument(dest='arg1', nargs=1,
-                    help='provide file or directory name', metavar='path')
+                    help='provide snmpsim data directory name', metavar='path')
 parser.add_argument('--snmpsim-dns', dest="snmpsim_dns", default="snmpsim",
                     help="DNS address of the snmpsim server. Use 'snmpsim' if inside docker network",
                     metavar="snmpsim")
@@ -128,10 +138,8 @@ else:
 
     path = args.arg1[0]
     if os.path.isdir(path):
-        import_dir_with_snmpsim_files(path, h_interface)
-    elif os.path.isfile(path):
-        create_single_host(path, h_interface)
+        scan_snmpsim_root_dir(path)
     else:
-        sys.exit("{0} is not a valid filename or directory".format(path))
+        sys.exit("{0} is not a valid directory".format(path))
 
     zapi.do_request('user.logout')

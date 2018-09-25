@@ -22,10 +22,9 @@ You can also just use snmpsim instance without bundled Zabbix Server and test wi
 - Add {$SNMP_COMMUNITY} macro with the same value as snmprec/snmpwalk filename
 
 ## Some automation
-Use bundled python script `add_snmpsim_hosts.py` to mass create hosts and attach templates. (Requires py-zabbix, run `pip install py-zabbix` first)  
+Use bundled python script `add_snmpsim_hosts.py <snmpsim root data dir>` to mass create hosts and attach templates. (Requires py-zabbix, run `pip install py-zabbix` first)  
 For example:
 - `bin/add_snmpsim_hosts.py data` - to create hosts and attach templates for all *snmpwalk, *snmprec files found in the `data` dir.  
-- `bin/add_snmpsim_hosts.py data/net.cisco.switch` - to create host `net.cisco.switch` and attach `Template Net Cisco IOS SNMPv2` to it.
 - `bin/add_snmpsim_hosts.py data --filter dlink` - to create host that contains `dlink` in the filename and attach `Template Net D-Link DES_DGS Switch SNMPv2` to them:
 ```
 .\bin\add_snmpsim_hosts.py .\data\ --filter dlink
@@ -37,10 +36,11 @@ Found file .\data\net.dlink.dgs-3420-26sc.snmpwalk...
 Going to create host "net.dlink.dgs-3420-26sc" with templates "[{'name': 'Template Net D-Link DES_DGS Switch SNMPv2', 'templateid': 10223}]" attached
 ```
 - `bin/add_snmpsim_hosts.py --api_url http://myzabbix.local/api_jsonrpc.php --username=myuser --password mypassword data --snmpsim-ip=192.168.3.4` to create snmpsim hosts on the other Zabbix Server.  
-
+Note that you need to provide *root* snmpsim directory that you mount into snmpsim, do not provide subdirs in the snmpsim data tree - otherwise {$SNMP_COMMUNITY} macro value would be wrong!  
 See `--help` for usage.
 
 ### How to redefine host settings on creation
+Work in progress!  
 Base templates depends on the filename. Some logic how template are choosen by default is defined here: `bin/snmpsim_rules.py#set_templates()`  
 
 //TODO:  
