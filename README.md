@@ -26,7 +26,16 @@ Use bundled python script `add_snmpsim_hosts.py` to mass create hosts and attach
 For example:
 - `bin/add_snmpsim_hosts.py data` - to create hosts and attach templates for all *snmpwalk, *snmprec files found in the `data` dir.  
 - `bin/add_snmpsim_hosts.py data/net.cisco.switch` - to create host `net.cisco.switch` and attach `Template Net Cisco IOS SNMPv2` to it.
-- `bin/add_snmpsim_hosts.py data --filter juniper` - to create host that contains `juniper` in the filename and attach `Template Net Juniper SNMPv2` to them.
+- `bin/add_snmpsim_hosts.py data --filter dlink` - to create host that contains `dlink` in the filename and attach `Template Net D-Link DES_DGS Switch SNMPv2` to them:
+```
+.\bin\add_snmpsim_hosts.py .\data\ --filter dlink
+Found file .\data\net.dlink.DGS-3627G.snmpwalk...
+Going to create host "net.dlink.DGS-3627G" with templates "[{'name': 'Template Net D-Link DES_DGS Switch SNMPv2', 'templateid': 10223}]" attached
+Found file .\data\net.dlink.des3200.snmprec...
+Going to create host "net.dlink.des3200" with templates "[{'name': 'Template Net D-Link DES_DGS Switch SNMPv2', 'templateid': 10223}]" attached
+Found file .\data\net.dlink.dgs-3420-26sc.snmpwalk...
+Going to create host "net.dlink.dgs-3420-26sc" with templates "[{'name': 'Template Net D-Link DES_DGS Switch SNMPv2', 'templateid': 10223}]" attached
+```
 - `bin/add_snmpsim_hosts.py --api_url http://myzabbix.local/api_jsonrpc.php --username=myuser --password mypassword data --snmpsim-ip=192.168.3.4` to create snmpsim hosts on the other Zabbix Server.  
 
 See `--help` for usage.
