@@ -2,6 +2,7 @@ version: '2'
 services:
   snmpsim:
     build: ./snmpsim
+    restart: on-failure
     ports: 
       - 161:161/udp
     volumes: 
