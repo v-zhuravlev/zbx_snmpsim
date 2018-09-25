@@ -53,7 +53,10 @@ def create_host(path, h_interface):
     }
     # apply some rules to params
     rules = snmpsim_rules.SnmpsimRules(zapi, params, path)
-    rules.apply_all_rules()
+    try:
+        rules.apply_all_rules()
+    except ZabbixAPIException as err:
+        print err
     params = rules.get_params()
 
     # check for .json file
