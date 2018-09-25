@@ -3,6 +3,8 @@
 This repo provides a quick way to test Zabbix SNMP templates with Zabbix and a snmpsim snapshots provided by snmpsim app.  
 
 
+![image](https://user-images.githubusercontent.com/14870891/46046365-6c530480-c129-11e8-9095-ba6a90228a7a.png)
+
 
 ## Prepare simulation data
 - Add file *.snmpwalk or *.snmprec to data dir. More on how to prepare simulation data is [here](http://snmplabs.com/snmpsim/building-simulation-data.html)
