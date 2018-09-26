@@ -57,28 +57,28 @@ def create_host(path, h_interface):
     try:
         rules.apply_all_rules()
     except ZabbixAPIException as err:
-        print err
+        print(err)
     params = rules.get_params()
 
     # check for .json file
     # TODO add support of rewriting defaults by adding .json files with the same name
 
     try:
-        print "Going to create host \"{}\" with templates \"{}\" attached".format(
-            params['host'], params['templates'])
+        print("Going to create host \"{}\" with templates \"{}\" attached".format(
+            params['host'], params['templates']))
         zapi.do_request('host.create', params)
     except ZabbixAPIException as err:
         if "Host with the same name" in err[0]:
-            print "Host with the same name \"{}\" already exists. Skipping".format(
-                params['host'])
+            print("Host with the same name \"{}\" already exists. Skipping".format(
+                params['host']))
         else:
-            print (err[0])
+            print(err[0])
 
 
 def create_single_host(host, h_interface):
     """This creates single host"""
 
-    print ("Found file {}...".format(host))
+    print("Found file {}...".format(host))
     create_host(host, h_interface)
 
 
@@ -131,7 +131,7 @@ try:
                      user=args.username,
                      password=args.password)
 except ZabbixAPIException as err:
-    print (err[0])
+    print(err[0])
 else:
     h_interface = prepare_interface(
         args.snmpsim_ip, args.snmpsim_dns, args.snmpsim_port)
