@@ -1,6 +1,8 @@
 FROM python:3.4-slim
 
-RUN pip install snmpsim
+COPY requirements.txt ./requirements.txt
+# Install any needed packages specified in requirements.txt
+RUN pip install -q --trusted-host pypi.python.org -r requirements.txt
 
 RUN adduser --system snmpsim
 
