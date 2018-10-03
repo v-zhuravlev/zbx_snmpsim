@@ -1,0 +1,19 @@
+version: '2'
+services:
+  postgres:
+    image: postgres
+    logging: 
+        options:
+          max-size: '10m'
+          max-file: '5'
+
+  postgres-zabbix-agent:
+    image: zabbix/zabbix-agent:ubuntu-latest
+    # ports:
+    #  - "10050:10050"
+    environment:
+     - ZBX_SERVER_HOST=zabbix-server
+     - ZBX_HOSTNAME=postgres
+    volumes: 
+     - ./postgres/zabbix_agentd.d:/etc/zabbix/zabbix_agentd.d
+    #RUN after install apt-get update && apt-get install postgresql-client
