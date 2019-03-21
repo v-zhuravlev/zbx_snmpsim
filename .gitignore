@@ -1,3 +1,7 @@
+data/private/
+# editors
+.vscode/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -106,4 +110,3 @@ venv.bak/
 #dirs with raw files
 raw
 unsorted
-data/private
