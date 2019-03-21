@@ -72,10 +72,10 @@ class SnmpsimRules():
             "server.cisco":"Template Server Cisco UCS SNMPv2",
 
         }
-        for search_string, template_name in templates.iteritems():
+        for search_string, template_name in templates.items():
 
             if search_string in get_hostname_from_path(self.path):
-                #print "Found match {} in {}".format(search_string, template)
+                #print("Found match {} in {}".format(search_string, template))
                 template_id = self.zapi.get_id('template', item=template_name)
                 if template_id:
                     template = {

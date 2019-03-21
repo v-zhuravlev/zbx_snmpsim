@@ -131,7 +131,8 @@ try:
                      user=args.username,
                      password=args.password)
 except ZabbixAPIException as err:
-    print(err[0])
+    print(err)
+
 else:
     h_interface = prepare_interface(
         args.snmpsim_ip, args.snmpsim_dns, args.snmpsim_port)
