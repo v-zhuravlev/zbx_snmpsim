@@ -11,7 +11,7 @@ This repo provides a quick way to test Zabbix SNMP templates with Zabbix and a s
 
 ## Test with bundled Zabbix Server
 - run docker-compose to start zabbix-server and snmpsim
-`docker-compose.exe -f .\docker-compose.snmpsim.yml -f .\docker-compose.yml.zabbix up`
+`docker-compose.exe -f .\docker-compose.snmpsim.yml -f .\docker-compose.zabbix.yml up`
 - Access Zabbix Frontend on http://localhost
 - Add new host with SNMP interface and use DNS address `snmpsim` to connect, use port 161
 - Add {$SNMP_COMMUNITY} macro with the same value as *.snmprec *.snmpwalk filename
