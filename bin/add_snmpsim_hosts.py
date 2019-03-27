@@ -57,7 +57,7 @@ def create_host(path, h_interface):
     try:
         rules.apply_all_rules()
     except ZabbixAPIException as err:
-        print(err)
+        print(err.data)
     params = rules.get_params()
 
     # check for .json file
@@ -68,11 +68,11 @@ def create_host(path, h_interface):
             params['host'], params['templates']))
         zapi.do_request('host.create', params)
     except ZabbixAPIException as err:
-        if "Host with the same name" in err[0]:
+        if "Host with the same name" in err.data:
             print("Host with the same name \"{}\" already exists. Skipping".format(
                 params['host']))
         else:
-            print(err[0])
+            print(err.data)
 
 
 def create_single_host(host, h_interface):
@@ -131,7 +131,7 @@ try:
                      user=args.username,
                      password=args.password)
 except ZabbixAPIException as err:
-    print(err)
+    print(err.data)
 
 else:
     h_interface = prepare_interface(
