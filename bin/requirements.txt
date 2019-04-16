@@ -1,1 +1,1 @@
-py-zabbix
+py-zabbix>=1.1.5
