@@ -78,6 +78,7 @@ Base templates depends on the filename. Some logic how template are choosen by d
 //TODO:  
 You can rewrite any template settings by creating host.json file nearby host.snmpec file.  
 For example:
+
 ```json
     {
         "templates":[
