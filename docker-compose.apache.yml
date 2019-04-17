@@ -3,8 +3,6 @@ services:
   apache:
     build: ./apache
     restart: on-failure
-    ports: 
-      - 8080:80
     logging: 
         options:
           max-size: '10m'
