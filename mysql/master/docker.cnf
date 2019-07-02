@@ -1,0 +1,7 @@
+[mysqld]
+skip-host-cache
+#skip-name-resolve
+
+server-id = 1
+log_bin = mysql-bin.log
+binlog_do_db = zabbix

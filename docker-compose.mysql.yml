@@ -1,0 +1,38 @@
+version: '2.0'
+services:
+
+  mysql-zabbix-agent:
+    build: ./mysql/agent
+    # ports:
+    #  - "10050:10050"
+    environment:
+     - ZBX_SERVER_HOST=zabbix-server
+     - ZBX_HOSTNAME=mysql-zabbix-agent
+    volumes: 
+     - ./mysql/agent/.my.cnf:/var/lib/zabbix/.my.cnf
+     - ./mysql/agent/zabbix_agentd.d:/etc/zabbix/zabbix_agentd.d
+
+  mysql-server-master:
+    image: mysql:8.0
+    # ports:
+    #  - "3306:3306"
+    command: [mysqld, --character-set-server=utf8, --collation-server=utf8_bin, --default-authentication-plugin=mysql_native_password]
+    volumes:
+    - ./mysql/master:/etc/mysql/conf.d:rw
+    - ./mysql/zbx_env/var/lib/mysql:/var/lib/mysql:rw
+    #env_file:
+    #- ./mysql/master/.env_db_mysql
+    stop_grace_period: 1m
+
+  mysql-server-slave:
+    image: mysql:8.0
+    # ports:
+    #  - "3307:3306"
+    command: [mysqld, --character-set-server=utf8, --collation-server=utf8_bin, --default-authentication-plugin=mysql_native_password]
+    volumes:
+    - ./mysql/slave:/etc/mysql/conf.d:rw
+    - ./mysql/slave/var/lib/mysql:/var/lib/mysql:rw
+    #env_file:
+    #- ./mysql/slave/.env_db_mysql_slave
+    depends_on:
+    - mysql-server-master
