@@ -47,6 +47,8 @@ class HostsCreator:
 
             for hc in host_configs:
                 try:
+                    print("Going to create host using config \"{}\"".format(
+                         hc.__file__))
                     hc.create_host(self.zapi)
                 except ZabbixAPIException as err:
                     print(err.data)
