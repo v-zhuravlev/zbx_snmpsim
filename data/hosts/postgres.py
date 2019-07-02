@@ -1,14 +1,14 @@
 def create_host(zapi):
 
     params = {
-        "host": "postgresql",
+        "host": "postgres-zabbix-agent",
         "interfaces": [
             {
                 "type": 1,
                 "main": 1,
                 "useip": 0,
                 "ip": "",
-                "dns": "postgresql",
+                "dns": "postgres-zabbix-agent",
                 "port": "10050"
             }
         ],
@@ -24,7 +24,7 @@ def create_host(zapi):
         ],
         "macros": [
             {
-                "macro": "{$NGINX_STUB_STATUS_PORT}",
+                "macro": "{$SOME_POSTGRES_MACRO}",
                 "value": "8080"
             }
         ],
