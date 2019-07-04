@@ -1,7 +1,7 @@
 def create_host(zapi):
 
     params = {
-        "host": "mysql-zabbix-agent",
+        "host": "mysql-server-master",
         "interfaces": [
             {
                 "type": 1,
@@ -24,8 +24,8 @@ def create_host(zapi):
         ],
         "macros": [
             {
-                "macro": "{$SOME_MACRO}",
-                "value": "8080"
+                "macro": "{$MYSQLSERVER}",
+                "value": "mysql-server-master"
             }
         ],
         "inventory_mode": 0
