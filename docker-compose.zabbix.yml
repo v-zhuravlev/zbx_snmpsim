@@ -1,33 +1,33 @@
 version: '2'
 services:
- zabbix-server:
-  image: zabbix/zabbix-server-mysql:ubuntu-latest
-  ports:
-   - "10051:10051"
-  volumes:
-   - ./zabbix/zbx_env/usr/lib/zabbix/alertscripts:/usr/lib/zabbix/alertscripts
-   - ./zabbix/zbx_env/usr/lib/zabbix/externalscripts:/usr/lib/zabbix/externalscripts
-   - ./zabbix/zbx_env/var/lib/zabbix/modules:/var/lib/zabbix/modules
-   - ./zabbix/zbx_env/var/lib/zabbix/enc:/var/lib/zabbix/enc
-   - ./zabbix/zbx_env/var/lib/zabbix/ssh_keys:/var/lib/zabbix/ssh_keys
-   - ./zabbix/zbx_env/var/lib/zabbix/mibs:/var/lib/zabbix/mibs
-  links:
-   - mysql-server:mysql-server
-  ulimits:
-   nproc: 65535
-   nofile:
-    soft: 20000
-    hard: 40000
-  env_file:
-   - ./zabbix/.env_db_mysql
-   - ./zabbix/.env_srv
-  user: root
-  labels:
-   com.zabbix.description: "Zabbix server with MySQL database support"
-   com.zabbix.company: "Zabbix SIA"
-   com.zabbix.component: "zabbix-server"
-   com.zabbix.dbtype: "mysql"
-   com.zabbix.os: "ubuntu"
+  zabbix-server:
+    image: zabbix/zabbix-server-mysql:alpine-latest
+    ports:
+      - "10051:10051"
+    volumes:
+      - ./zabbix/zbx_env/usr/lib/zabbix/alertscripts:/usr/lib/zabbix/alertscripts
+      - ./zabbix/zbx_env/usr/lib/zabbix/externalscripts:/usr/lib/zabbix/externalscripts
+      - ./zabbix/zbx_env/var/lib/zabbix/modules:/var/lib/zabbix/modules
+      - ./zabbix/zbx_env/var/lib/zabbix/enc:/var/lib/zabbix/enc
+      - ./zabbix/zbx_env/var/lib/zabbix/ssh_keys:/var/lib/zabbix/ssh_keys
+      - ./zabbix/zbx_env/var/lib/zabbix/mibs:/var/lib/zabbix/mibs
+    links:
+      - mysql-server:mysql-server
+    ulimits:
+      nproc: 65535
+      nofile:
+        soft: 20000
+        hard: 40000
+    env_file:
+      - ./zabbix/.env_db_mysql
+      - ./zabbix/.env_srv
+    user: root
+    labels:
+      com.zabbix.description: "Zabbix server with MySQL database support"
+      com.zabbix.company: "Zabbix SIA"
+      com.zabbix.component: "zabbix-server"
+      com.zabbix.dbtype: "mysql"
+      com.zabbix.os: "ubuntu"
 
 #  zabbix-agent:
 #     image: zabbix/zabbix-agent:ubuntu-latest
@@ -38,33 +38,35 @@ services:
 #      - ZBX_HOSTNAME=Zabbix server
 
 
- zabbix-web-apache-mysql:
-  image: zabbix/zabbix-web-apache-mysql:ubuntu-latest
-  ports:
-   - "80:80"
-   #- "443:443"
-  links:
-   - mysql-server:mysql-server
-   - zabbix-server:zabbix-server
-  volumes:
-   - ./zabbix/zbx_env/etc/ssl/apache2:/etc/ssl/apache2:ro
-  env_file:
-   - ./zabbix/.env_db_mysql
-   - ./zabbix/.env_web
-  user: root
-  labels:
-   com.zabbix.description: "Zabbix frontend on Apache web-server with MySQL database support"
-   com.zabbix.company: "Zabbix SIA"
-   com.zabbix.component: "zabbix-frontend"
-   com.zabbix.webserver: "apache2"
-   com.zabbix.dbtype: "mysql"
-   com.zabbix.os: "ubuntu"
+  zabbix-web-nginx-mysql:
+    image: zabbix/zabbix-web-nginx-mysql:alpine-latest
+    ports:
+      - "80:80"
+      #- "443:443"
+    links:
+      - mysql-server:mysql-server
+      - zabbix-server:zabbix-server
+    # volumes:
+      # - ./zabbix/zbx_env/etc/ssl/apache2:/etc/ssl/apache2:ro
+    env_file:
+      - ./zabbix/.env_db_mysql
+      - ./zabbix/.env_web
+    user: root
+    # labels:
+    #   com.zabbix.description: "Zabbix frontend on Apache web-server with MySQL database support"
+    #   com.zabbix.company: "Zabbix SIA"
+    #   com.zabbix.component: "zabbix-frontend"
+    #   com.zabbix.webserver: "apache2"
+    #   com.zabbix.dbtype: "mysql"
+    #   com.zabbix.os: "ubuntu"
 
- mysql-server:
-  image: mysql:5.7
-  command: [mysqld, --character-set-server=utf8, --collation-server=utf8_bin]
-  volume_driver: local
-  #ports: ["3306:3306"]
-  env_file:
-   - ./zabbix/.env_db_mysql
-  user: root
+  mysql-server:
+    image: mysql:5.7
+    command: [mysqld, --character-set-server=utf8, --collation-server=utf8_bin]
+    # volume_driver: local
+    volumes:
+      - ./zbx_volumes/mysql_db:/var/lib/mysql:rw
+    #ports: ["3306:3306"]
+    env_file:
+      - ./zabbix/.env_db_mysql
+    user: root

@@ -1,0 +1,2 @@
+FROM zabbix/zabbix-agent:apline-latest
+RUN apk --no-cache add postgresql-client

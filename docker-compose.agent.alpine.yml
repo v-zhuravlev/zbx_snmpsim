@@ -1,0 +1,12 @@
+version: '2'
+services:
+    zabbix-agent:
+        build:
+            context: ./postgres/zabbix_agent
+            dockerfile: Dockerfile-alpine
+        environment:
+         - ZBX_SERVER_HOST=zabbix-server
+         - ZBX_ACTIVE_ALLOW=false 
+        volumes: 
+         - ./postgres/zabbix_agent/home:/var/lib/zabbix
+         - ./postgres/zabbix_agent/conf:/etc/zabbix/zabbix_agentd.d

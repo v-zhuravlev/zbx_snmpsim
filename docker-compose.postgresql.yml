@@ -1,0 +1,21 @@
+version: '2'
+
+services:
+  postgres-slave:
+    build: ./postgres/postgresql-server/
+    ports:
+      - 5433:5432
+    links:
+      - postgres-master
+    environment:
+      REPLICATION_ROLE: slave
+      POSTGRES_MASTER_SERVICE_HOST: postgres-master
+    volumes:
+      - ./zbx_volumes/pg_slave:/var/lib/postgresql/data:rw
+
+  postgres-master:
+    build: ./postgres/postgresql-server/
+    ports:
+      - 5432:5432
+    volumes:
+      - ./zbx_volumes/pg_master:/var/lib/postgresql/data:rw
