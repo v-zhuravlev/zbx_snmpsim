@@ -110,3 +110,4 @@ venv.bak/
 #dirs with raw files
 raw
 unsorted
+zbx_volumes/
