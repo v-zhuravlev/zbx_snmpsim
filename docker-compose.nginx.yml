@@ -1,9 +1,0 @@
-version: '2'
-services:
-  nginx:
-    build: ./nginx
-    restart: on-failure
-    logging: 
-        options:
-          max-size: '10m'
-          max-file: '5'

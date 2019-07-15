@@ -29,44 +29,31 @@ services:
       com.zabbix.dbtype: "mysql"
       com.zabbix.os: "ubuntu"
 
-#  zabbix-agent:
-#     image: zabbix/zabbix-agent:ubuntu-latest
-#     ports:
-#      - "10050:10050"
-#     environment:
-#      - ZBX_SERVER_HOST=zabbix-server
-#      - ZBX_HOSTNAME=Zabbix server
-
-
   zabbix-web-nginx-mysql:
     image: zabbix/zabbix-web-nginx-mysql:alpine-latest
     ports:
       - "80:80"
-      #- "443:443"
+
     links:
       - mysql-server:mysql-server
       - zabbix-server:zabbix-server
-    # volumes:
-      # - ./zabbix/zbx_env/etc/ssl/apache2:/etc/ssl/apache2:ro
+
     env_file:
       - ./zabbix/.env_db_mysql
       - ./zabbix/.env_web
     user: root
-    # labels:
-    #   com.zabbix.description: "Zabbix frontend on Apache web-server with MySQL database support"
-    #   com.zabbix.company: "Zabbix SIA"
-    #   com.zabbix.component: "zabbix-frontend"
-    #   com.zabbix.webserver: "apache2"
-    #   com.zabbix.dbtype: "mysql"
-    #   com.zabbix.os: "ubuntu"
+    labels:
+      com.zabbix.description: "Zabbix frontend on Apache web-server with MySQL database support"
+      com.zabbix.company: "Zabbix SIA"
+      com.zabbix.component: "zabbix-frontend"
+      com.zabbix.webserver: "apache2"
+      com.zabbix.dbtype: "mysql"
+      com.zabbix.os: "apline"
 
   mysql-server:
     image: mysql:5.7
     command: [mysqld, --character-set-server=utf8, --collation-server=utf8_bin]
-    # volume_driver: local
-    volumes:
-      - ./zbx_volumes/mysql_db:/var/lib/mysql:rw
-    #ports: ["3306:3306"]
+    volume_driver: local
     env_file:
       - ./zabbix/.env_db_mysql
     user: root

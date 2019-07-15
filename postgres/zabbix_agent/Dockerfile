@@ -1,2 +1,2 @@
-FROM zabbix/zabbix-agent:ubuntu-latest
-RUN apt-get update && apt-get install -y postgresql-client
+FROM zabbix/zabbix-agent:alpine-latest
+RUN apk --no-cache add postgresql-client

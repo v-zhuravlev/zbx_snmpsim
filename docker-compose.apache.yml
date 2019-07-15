@@ -1,9 +1,0 @@
-version: '2'
-services:
-  apache:
-    build: ./apache
-    restart: on-failure
-    logging: 
-        options:
-          max-size: '10m'
-          max-file: '5'

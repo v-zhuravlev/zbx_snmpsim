@@ -8,7 +8,7 @@ def create_host(zapi):
                 "main": 1,
                 "useip": 0,
                 "ip": "",
-                "dns": "zabbix-agent",
+                "dns": "zabbix-agent-postgresql",
                 "port": "10050"
             }
         ],
@@ -20,7 +20,7 @@ def create_host(zapi):
             }
         ],
         "templates": [
-            zapi.template.get(filter={"name": "Template DB PgSQL"}, output=['id'])[0]
+            zapi.template.get(filter={"name": "Template DB PostgreSQL"}, output=['id'])[0]
         ],
         "macros": [
             {
