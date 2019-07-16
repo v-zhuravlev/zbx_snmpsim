@@ -24,11 +24,30 @@ services:
      - MYSQL_ROOT_PASSWORD=root_pwd 
     command: [mysqld, --character-set-server=utf8, --collation-server=utf8_bin, --default-authentication-plugin=mysql_native_password]
     volumes:
-     - ./mysql/master:/etc/mysql/conf.d:ro
+     - ./mysql/master:/etc/mysql/conf.d
+     - ./mysql/master:/etc/my.cnf.d
     # - ./mysql/master/var/lib/mysql:/var/lib/mysql:rw
     #env_file:
     #- ./mysql/master/.env_db_mysql
     stop_grace_period: 1m
+
+  # mysql-server-master2:
+    # #image: mysql:8.0
+    # #image: mysql:5.7.26
+    # image: mariadb:10.4
+    # #image: percona:8.0
+    # # ports:
+    # #  - "3306:3306"
+    # environment:
+     # - MYSQL_ROOT_PASSWORD=root_pwd 
+    # command: [mysqld, --character-set-server=utf8, --collation-server=utf8_bin, --default-authentication-plugin=mysql_native_password]
+    # volumes:
+     # - ./mysql/master2:/etc/mysql/conf.d
+     # - ./mysql/master2:/etc/my.cnf.d
+    # # - ./mysql/master/var/lib/mysql:/var/lib/mysql:rw
+    # #env_file:
+    # #- ./mysql/master/.env_db_mysql
+    # stop_grace_period: 1m
 
   mysql-server-slave:
     #build: ./mysql/slave
@@ -43,8 +62,9 @@ services:
     #command: [rm, -f, /var/lib/mysql/auto.cnf]
     command: [mysqld, --character-set-server=utf8, --collation-server=utf8_bin, --default-authentication-plugin=mysql_native_password]
     volumes:
-     - ./mysql/slave:/etc/mysql/conf.d:ro
-     - ./mysql/slave/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d:ro
+     - ./mysql/slave:/etc/mysql/conf.d
+     - ./mysql/slave:/etc/my.cnf.d
+     - ./mysql/slave/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
     # - ./mysql/slave/var/lib/mysql:/var/lib/mysql:rw
     #env_file:
     #- ./mysql/slave/.env_db_mysql_slave
