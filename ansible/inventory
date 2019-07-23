@@ -1,0 +1,52 @@
+#ansible-playbook 2.8.2
+zabbix:
+  vars:
+    server: http://localhost
+    user: Admin
+    password: zabbix
+  children:
+    mysql:
+      hosts:
+        mysql-server-slave:
+          macros:
+            - { macro: MYSQL.HOST, value: mysql-server-slave }
+        mysql-server-master:
+          macros:
+            - { macro: MYSQL.HOST, value: mysql-server-master }
+      vars:
+        templates: 
+          - Template DB MySQL
+        hostgroups:
+          - Discovered hosts
+    nginx_plus:
+      hosts:
+        nginx_plus:
+          macros:
+            - { macro: NGINX_STUB_STATUS_PORT, value: 8080 }
+      vars:
+        templates:
+          - Template App Nginx HTTP
+          - Template App Nginx Plus HTTP
+        hostgroups:
+          - Discovered hosts
+    apache:
+      hosts:
+        apache:
+          macros:
+            - { macro: APACHE_STATUS_PORT, value: 8080 }
+            - { macro: APACHE_PROC_NAME, value: httpd }
+      vars:
+        templates:
+          - Template App Apache HTTP
+        hostgroups:
+          - Discovered hosts
+    nginx:
+      hosts:
+        nginx:
+          macros:
+            - { macro: NGINX_STUB_STATUS_PORT, value: 8080 }
+      vars:
+        templates:
+          - Template App Nginx HTTP
+        hostgroups:
+          - Discovered hosts 

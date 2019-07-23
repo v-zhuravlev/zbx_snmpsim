@@ -1,0 +1,37 @@
+#ansible-playbook 2.8.2
+- name: New hosts in Zabbix
+  gather_facts: no
+  hosts: zabbix
+  tasks:
+    - name: Create a new host or update an existing host's info
+      local_action:
+        module: zabbix_host
+        server_url: "{{ server }}"
+        login_user: "{{ user }}"
+        login_password: "{{ password }}"
+        host_name: "{{ inventory_hostname }}"
+        visible_name: 
+        description: 
+        host_groups: "{{ hostgroups }}"
+        link_templates: "{{ templates }}"
+        status: enabled
+        state: present
+        interfaces:
+          - type: agent
+            main: 1
+            useip: 0
+            ip: ""
+            dns: "{{ inventory_hostname }}"
+            port: 10050
+    - name: Create a new host macro or update an existing macro's value
+      local_action:
+        module: zabbix_hostmacro
+        server_url: "{{ server }}"
+        login_user: "{{ user }}"
+        login_password: "{{ password }}"
+        host_name: "{{ inventory_hostname }}"
+        macro_name: "{{ item.macro }}"
+        macro_value: "{{ item.value }}"
+        state: present
+      loop: "{{ macros }}"
+      
