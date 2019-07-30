@@ -2,9 +2,11 @@ version: '2'
 
 services:
   postgres-slave:
-    build: ./postgres/postgresql-server/
-    # ports:
-    #   - 5433:5432
+    build:
+      context: ./postgres/postgresql-server-10/
+      dockerfile: Dockerfile
+    ports:
+      - 5433:5432
     links:
       - postgres-master
     environment:
@@ -12,9 +14,11 @@ services:
       POSTGRES_MASTER_SERVICE_HOST: postgres-master
 
   postgres-master:
-    build: ./postgres/postgresql-server/
-    # ports:
-    #   - 5432:5432
+    build:
+      context: ./postgres/postgresql-server-10/
+      dockerfile: Dockerfile
+    ports:
+      - 5432:5432
 
   zabbix-agent-postgresql:
     build:

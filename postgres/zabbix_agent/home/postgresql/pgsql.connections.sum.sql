@@ -13,8 +13,9 @@ BEGIN
                 sum(CASE WHEN state = 'idle in transaction' THEN 1 ELSE 0 END) AS idle_in_transaction,
                 count(*) AS total,
                 count(*)*100/(SELECT current_setting('max_connections')::int) AS total_pct,
-                sum(CASE WHEN wait_event IS NOT NULL THEN 1 ELSE 0 END) AS waiting
-            FROM pg_stat_activity
+                sum(CASE WHEN wait_event IS NOT NULL THEN 1 ELSE 0 END) AS waiting,
+                (SELECT count(*) FROM pg_prepared_xacts) AS prepared
+            FROM pg_stat_activity WHERE datid is not NULL
             ) T;
         
     ELSE
@@ -25,7 +26,8 @@ BEGIN
                 sum(CASE WHEN state = 'idle in transaction' THEN 1 ELSE 0 END) AS idle_in_transaction,
                 count(*) AS total,
                 count(*)*100/(SELECT current_setting('max_connections')::int) AS total_pct,
-                sum(CASE WHEN waiting IS TRUE THEN 1 ELSE 0 END) AS waiting
+                sum(CASE WHEN waiting IS TRUE THEN 1 ELSE 0 END) AS waiting,
+                (SELECT count(*) FROM pg_prepared_xacts) AS prepared
             FROM pg_stat_activity
             ) T;
     END IF;

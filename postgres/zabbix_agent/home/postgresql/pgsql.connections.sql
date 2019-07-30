@@ -16,7 +16,7 @@ BEGIN
                 count(*) AS total,
                 count(*)*100/(SELECT current_setting('max_connections')::int) AS total_pct,
                 sum(CASE WHEN wait_event IS NOT NULL THEN 1 ELSE 0 END) AS waiting
-            FROM pg_stat_activity GROUP BY datname ) T;
+            FROM pg_stat_activity WHERE datid is not NULL GROUP BY datname ) T;
 
         ELSE
             SELECT json_object_agg(datname, row_to_json(T)) INTO res from (

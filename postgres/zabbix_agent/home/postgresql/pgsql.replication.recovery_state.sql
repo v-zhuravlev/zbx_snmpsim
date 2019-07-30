@@ -1,0 +1,1 @@
+SELECT CASE WHEN (SELECT pg_is_in_recovery()) = 't' THEN 1 ELSE 0 END

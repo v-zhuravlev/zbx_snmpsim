@@ -24,7 +24,7 @@ def create_host(zapi):
         ],
         "macros": [
             {
-                "macro": "{$PG_HOST}",
+                "macro": "{$PG.HOST}",
                 "value": "postgres-master"
             }
         ],
