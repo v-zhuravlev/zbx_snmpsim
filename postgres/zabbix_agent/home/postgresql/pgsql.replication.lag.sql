@@ -5,7 +5,7 @@ DECLARE
 BEGIN
     SELECT current_setting('server_version_num') INTO ver;
 
-    IF (ver >= 10) THEN
+    IF (ver >= 100000) THEN
         SELECT * INTO res from (
             SELECT
                 CASE WHEN pg_last_wal_receive_lsn() = pg_last_wal_replay_lsn()

@@ -27,4 +27,4 @@ BEGIN
     perform set_config('zbx_tmp.trans_json_res', res, false);
 END $$;
 
-select current_setting('zbx_tmp.trans_json_res');
+SELECT current_setting('zbx_tmp.trans_json_res');
