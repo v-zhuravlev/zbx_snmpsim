@@ -1,0 +1,48 @@
+[mysqld]
+
+skip-host-cache
+#skip-name-resolve
+#log_bin=mysql-bin.log
+#binlog_do_db=zabbix
+
+#Уникальный идентификатор сервера
+server-id = 1
+ 
+#Логи ошибок
+#log_error = /var/log/mysql/mysql.err
+ 
+#Путь к bin-логам сервера(бинлог, который ведет мастер)
+log_bin = /var/lib/mysql/mysql-bin.log
+log_bin_index = /var/lib/mysql/mysql-bin.log.index
+ 
+#Путь к relay-логам слейва (бинлог, скачанный с мастера)
+relay_log = /var/lib/mysql/mysql-relay-bin
+relay_log_index = /var/lib/mysql/mysql-relay-bin.index
+ 
+#БД, которые нужно/не нужно реплицировать
+#replicate-do-db = testdb
+replicate-ignore-db=information_schema
+replicate-ignore-db=mysql
+replicate-ignore-db=performance_schema
+ 
+#Не вести журнал бин-лога для БД
+binlog-ignore-db = information_schema
+binlog-ignore-db = mysql
+binlog-ignore-db = performance_schema
+ 
+#Чтобы не было конфликтов автоинкремента, говорим серверу,
+#чтобы id генерировались начиная с 1-го прибавляя по 2,
+# например 13, 23, 33, 43...
+auto_increment_increment = 2
+auto_increment_offset = 1
+ 
+#Сохранять логи с мастера в своий бин-лог, чтобы передать слейву
+log-slave-updates
+#log_slave_updates = 1
+
+# Сколько дней хранить бин-логи
+#expire_logs_days = 7
+#binlog_expire_logs_seconds = 604800
+
+# Максимальный размер бин-лога
+max_binlog_size = 500M
