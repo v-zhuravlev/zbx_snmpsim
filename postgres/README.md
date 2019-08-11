@@ -15,7 +15,7 @@ docker-compose -f docker-compose.postgresql.yml build --pull
 - Run the PostgreSQL cluster:
 
 ```bash
-docker-compose -f docker-compose.postgresql.yml build up -d
+docker-compose -f docker-compose.postgresql.yml up -d
 ```
 
 - Run a complete Zabbix installation:
