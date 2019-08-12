@@ -1,0 +1,11 @@
+version: '2'
+
+services:
+  linux-node_exporter:
+    image: prom/node-exporter:v0.18.1
+  linux-zabbix-agent:
+    image: zabbix/zabbix-agent:alpine-4.2.4
+  linux-snmpd:
+    build: ./linux/snmp
+    volumes:
+      - ./linux/snmp/snmpd.conf:/etc/snmp/snmpd/snmpd.conf
