@@ -1,0 +1,14 @@
+# Author: Chudinov Maxim 
+# Description: start nginx container with zabbix-agent
+#
+version: '2'
+services:
+  nginx-agent:
+    build: ./nginx_agent
+    ports:
+      - "8081:8080"
+    restart: on-failure
+    logging: 
+        options:
+          max-size: '10m'
+          max-file: '5'
