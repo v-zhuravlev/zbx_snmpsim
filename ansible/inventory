@@ -1,0 +1,81 @@
+#ansible-playbook 2.8.2
+zabbix:
+  vars:
+    server: http://192.168.7.123
+    user: Admin
+    password: zabbix
+    interface: "{{ inventory_hostname }}"
+  children:
+    mysql:
+      hosts:
+        mysql-server-slave:
+          macros:
+            - { macro: MYSQL.HOST, value: mysql-server-slave }
+          interface: mysql-zabbix-agent
+        mysql-server-master:
+          macros:
+            - { macro: MYSQL.HOST, value: mysql-server-master }
+          interface: mysql-zabbix-agent
+      vars:
+        templates: 
+          - Template DB MySQL
+        hostgroups:
+          - Discovered hosts
+    postgres:
+      hosts:
+        postgres-master:
+          macros:
+            - { macro: PG.HOST, value: postgres-master }
+          interface: zabbix-agent-postgresql
+        postgres-slave:
+          macros:
+            - { macro: PG.HOST, value: postgres-slave }
+          interface: zabbix-agent-postgresql
+      vars:
+        templates: 
+          - Template DB PostgreSQL
+        hostgroups:
+          - Discovered hosts
+    # nginx_plus:
+      # hosts:
+        # nginx_plus:
+          # macros:
+            # - { macro: NGINX_STUB_STATUS_PORT, value: 8080 }
+      # vars:
+        # templates:
+          # - Template App Nginx HTTP
+          # - Template App Nginx Plus HTTP
+        # hostgroups:
+          # - Discovered hosts
+    # apache:
+      # hosts:
+        # apache:
+          # macros:
+            # - { macro: APACHE_STATUS_PORT, value: 8080 }
+            # - { macro: APACHE_PROC_NAME, value: httpd }
+      # vars:
+        # templates:
+          # - Template App Apache HTTP
+        # hostgroups:
+          # - Discovered hosts
+    nginx:
+      hosts:
+        nginx:
+          macros:
+            - { macro: NGINX.STUB_STATUS_PORT, value: 8080 }
+      vars:
+        templates:
+          - Template App Nginx by HTTP
+        hostgroups:
+          - Discovered hosts 
+    nginx2:
+      hosts:
+        nginx-agent:
+          macros:
+            - { macro: NGINX.STUB_STATUS_PORT, value: 8080 }
+          interface: nginx
+      vars:
+        templates:
+          - Template App Nginx by Zabbix agent
+        hostgroups:
+          - Discovered hosts 

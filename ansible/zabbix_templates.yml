@@ -1,0 +1,47 @@
+#ansible-playbook 2.8.2
+#https://github.com/ansible/ansible/issues/39220
+#https://docs.ansible.com/ansible/latest/modules/zabbix_template_module.html#zabbix-template-module
+- name: New hosts in Zabbix
+  gather_facts: no
+  hosts: localhost
+  tasks:
+    # - name: Dump Zabbix template
+      # local_action:
+        # module: zabbix_template
+        # server_url: http://127.0.0.1
+        # login_user: Admin
+        # login_password: zabbix
+        # template_name: Template DB MySQL
+        # state: dump
+      # register: template_dump
+    # - name: Import Zabbix template
+      # zabbix_template:
+        # server_url: http://127.0.0.1
+        # login_user: Admin
+        # login_password: zabbix
+        # template_name: Test Template
+        # template_json:
+          # zabbix_export:
+            # version: '3.2'
+            # templates:
+              # - name: Template for Testing
+                # description: 'Testing template import'
+                # template: Test Template
+                # groups:
+                  # - name: Templates
+                # applications:
+                  # - name: Test Application
+        # template_groups: Templates
+        # state: present
+    - name: Import Zabbix JSON template configuration
+      local_action:
+        module: zabbix_template
+        server_url: http://127.0.0.1
+        login_user: Admin
+        login_password: zabbix
+#        template_name: Apache2
+        template_xml: "{{ lookup('file', './templates/template_db_mysql.xml') }}"
+#        template_groups:
+#          - Webservers
+        state: present
+        
