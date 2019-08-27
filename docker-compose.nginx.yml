@@ -1,7 +1,10 @@
+# Author: Maxim Chudinov
+# Description: start nginx container with zabbix-agent
+#
 version: '2'
 services:
-  nginx:
-    build: ./nginx
+  nginx-agent:
+    build: ./nginx/nginx_agent
     restart: on-failure
     logging: 
         options:
