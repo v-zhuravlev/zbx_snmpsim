@@ -1,4 +1,4 @@
-FROM python:3.4-slim
+FROM python:3.6-slim
 
 COPY requirements.txt ./requirements.txt
 # Install any needed packages specified in requirements.txt
