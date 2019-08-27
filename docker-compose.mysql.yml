@@ -29,7 +29,7 @@ services:
     # - ./mysql/master/var/lib/mysql:/var/lib/mysql:rw
     #env_file:
     #- ./mysql/master/.env_db_mysql
-    stop_grace_period: 1m
+    #stop_grace_period: 1m
 
   # mysql-server-master2:
     # #image: mysql:8.0

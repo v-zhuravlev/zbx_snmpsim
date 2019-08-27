@@ -62,7 +62,7 @@ zabbix:
       hosts:
         nginx:
           macros:
-            - { macro: NGINX.STUB_STATUS_PORT, value: 8080 }
+            - { macro: NGINX.STUB_STATUS.PORT, value: 8080 }
       vars:
         templates:
           - Template App Nginx by HTTP
@@ -72,8 +72,8 @@ zabbix:
       hosts:
         nginx-agent:
           macros:
-            - { macro: NGINX.STUB_STATUS_PORT, value: 8080 }
-          interface: nginx
+            - { macro: NGINX.STUB_STATUS.PORT, value: 8080 }
+          interface: nginx-agent
       vars:
         templates:
           - Template App Nginx by Zabbix agent

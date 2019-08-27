@@ -1,5 +1,5 @@
 # ansible-playbook 2.8.2
-# Author:      Chudinov Maxim
+# Author:      Maxim Chudinov
 # Description: Create hosts into Zabbix server
 #
 - name: New hosts in Zabbix
