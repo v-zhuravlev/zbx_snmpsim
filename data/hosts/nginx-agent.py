@@ -29,7 +29,7 @@ def create_host(zapi):
             },
             # status is the page without redirect (since redirect is not supported by web.page.get)
             {
-                "macro": "{$NGINX.STUB_STATUS.URL}",
+                "macro": "{$NGINX.STUB_STATUS.PATH}",
                 "value": "status"
             }
         ],
