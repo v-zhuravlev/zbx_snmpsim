@@ -1,29 +1,34 @@
 # Zabbix snmpsim
-[Work in progress]
-This repo provides a quick way to test Zabbix SNMP templates with Zabbix and a snmpsim snapshots provided by snmpsim app.  
+This repo provides a quick way to test Zabbix templates using:
+- different SNMP devices snapshots loaded into snmpsim app.  
+- different applications docker containers (Nginx, Apache, Postgresql, MySQL...)
 
 
 ![image](https://user-images.githubusercontent.com/14870891/46046365-6c530480-c129-11e8-9095-ba6a90228a7a.png)
 
 
-## Prepare simulation data
+## SNMPSIM
+
 - Add file *.snmpwalk or *.snmprec to data dir. More on how to prepare simulation data is [here](http://snmplabs.com/snmpsim/building-simulation-data.html)
 
-## Test with bundled Zabbix Server
+### Test with bundled Zabbix Server
+
 - run docker-compose to start zabbix-server and snmpsim
 `docker-compose.exe -f .\docker-compose.snmpsim.yml -f .\docker-compose.zabbix.yml up`
 - Access Zabbix Frontend on http://localhost
 - Add new host with SNMP interface and use DNS address `snmpsim` to connect, use port 161
 - Add {$SNMP_COMMUNITY} macro with the same value as *.snmprec *.snmpwalk filename
 
-## Test with already existing Zabbix Server
+### Test with already existing Zabbix Server
+
 You can also just use snmpsim instance without bundled Zabbix Server and test with your own Zabbix that is up and running somewhere:
 - Start snmpsim only: `docker-compose.exe -f .\docker-compose.snmpsim.yml up`
 - Access Zabbix Frontend
 - Add new host with SNMP interface and use IP address of the host you are running on, use port 161
 - Add {$SNMP_COMMUNITY} macro with the same value as snmprec/snmpwalk filename
 
-## Some automation
+### Some automation
+
 Use bundled python script `create_hosts.py <snmpsim root data dir>` to mass create hosts and attach templates. (Requires py-zabbix, run `pip install py-zabbix` first)  
 For example:
 - `bin/create_hosts.py data` - to create hosts and attach templates for all *snmpwalk, *snmprec files found in the `data` dir.  
@@ -41,7 +46,7 @@ Going to create host "net.dlink.dgs-3420-26sc" with templates "[{'name': 'Templa
 Note that you need to provide *root* snmpsim directory that you mount into snmpsim, do not provide subdirs in the snmpsim data tree - otherwise {$SNMP_COMMUNITY} macro value would be wrong!  
 See `--help` for usage.
 
-## Test with snmpwalk
+### Test with snmpwalk
 
 You may also just test using snmpwalk cli:  
 
@@ -72,6 +77,7 @@ $ snmpwalk -c index -v 2c localhost .1.3
 ```
 
 ### How to redefine host settings on creation
+
 Work in progress!  
 Base templates depends on the filename. Some logic how template are choosen by default is defined here: `bin/snmpsim_rules.py#set_templates()`  
 
