@@ -1,14 +1,14 @@
 def create_host(zapi):
 
     params = {
-        "host": "nginx",
+        "host": "nginx-http",
         "interfaces": [
             {
                 "type": 1,
                 "main": 1,
                 "useip": 0,
                 "ip": "",
-                "dns": "nginx",
+                "dns": "nginx-agent",
                 "port": "10050"
             }
         ],
@@ -20,11 +20,11 @@ def create_host(zapi):
             }
         ],
         "templates": [
-            zapi.template.get(filter={"name": "Template App Nginx HTTP"}, output=['id'])[0]
+            zapi.template.get(filter={"name": "Template App Nginx by HTTP"}, output=['id'])[0]
         ],
         "macros": [
             {
-                "macro": "{$NGINX_STUB_STATUS_PORT}",
+                "macro": "{$NGINX.STUB_STATUS.PORT}",
                 "value": "8080"
             }
         ],
