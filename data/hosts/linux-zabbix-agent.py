@@ -20,7 +20,7 @@ def create_host(zapi):
             }
         ],
         "templates": [
-            zapi.template.get(filter={"name": "Template OS Linux Zabbix agent"}, output=['id'])[0]
+            zapi.template.get(filter={"name": "Template OS Linux"}, output=['id'])[0]
         ],
         "inventory_mode": 0
     }
