@@ -1,7 +1,7 @@
 def create_host(zapi):
 
     params = {
-        "host": "apache",
+        "host": "apache-agent",
         "interfaces": [
             {
                 "type": 1,
@@ -20,17 +20,7 @@ def create_host(zapi):
             }
         ],
         "templates": [
-            zapi.template.get(filter={"name": "Template App Apache HTTP"}, output=['id'])[0]
-        ],
-        "macros": [
-            {
-                "macro": "{$APACHE_STATUS_PORT}",
-                "value": "8080"
-            },
-            {
-                "macro": "{$APACHE_PROC_NAME}",
-                "value": "httpd"
-            }
+            zapi.template.get(filter={"name": "Template App Apache by Zabbix agent"}, output=['id'])[0]
         ],
         "inventory_mode": 0
     }
