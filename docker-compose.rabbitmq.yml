@@ -1,0 +1,35 @@
+rabbit-node1:
+  build: ./rabbitmq
+  hostname: rabbit-node1
+  environment:
+    - RABBITMQ_ERLANG_COOKIE=ZBXRABBIT
+  ports:
+    - "5672:5672"
+    - "15672:15672"
+
+rabbit-node2:
+  build: ./rabbitmq
+  hostname: rabbit-node2
+  links:
+    - rabbit-node1
+  environment:
+    - RABBITMQ_ERLANG_COOKIE=ZBXRABBIT
+    - JOIN_CLUSTER=rabbit-node1
+  ports:
+    - "5673:5672"
+    - "15673:15672"
+
+rabbit-node3:
+  build: ./rabbitmq
+  hostname: rabbit-node3
+  links:
+    - rabbit-node1
+    - rabbit-node2
+  environment:
+    - RABBITMQ_ERLANG_COOKIE=ZBXRABBIT
+    - JOIN_CLUSTER=rabbit-node1
+    - ZBX_CMD1=rabbitmqadmin declare queue name=ZBX_TEST_QUEUE durable=true
+    - ZBX_CMD2=rabbitmqadmin declare binding source="amq.fanout" destination_type="queue" destination="ZBX_TEST_QUEUE"
+  ports:
+    - "5674:5672"
+    - "15674:15672"
