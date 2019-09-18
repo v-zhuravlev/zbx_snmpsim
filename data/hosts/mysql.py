@@ -20,11 +20,11 @@ def create_host(zapi):
             }
         ],
         "templates": [
-            zapi.template.get(filter={"name": "Template DB MySQLv8"}, output=['id'])[0]
+            zapi.template.get(filter={"name": "Template DB MySQL"}, output=['id'])[0]
         ],
         "macros": [
             {
-                "macro": "{$MYSQLSERVER}",
+                "macro": "{$MYSQL.HOST}",
                 "value": "mysql-server-master"
             }
         ],
