@@ -8,4 +8,4 @@ services:
   linux-snmpd:
     build: ./linux/snmp
     volumes:
-      - ./linux/snmp/snmpd.conf:/etc/snmp/snmpd/snmpd.conf
+      - ./linux/snmp/snmpd.conf:/etc/snmp/snmpd.conf
