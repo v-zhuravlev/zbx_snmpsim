@@ -1,7 +1,7 @@
 FROM redis:5
 # FROM redis:4
 
-RUN apt-get update && apt-get install -y supervisor libcurl4 procps fish
+RUN apt-get update && apt-get install -y supervisor libcurl4 procps #fish
 
 EXPOSE 6379
 COPY supervisor.master.conf /etc/supervisor/conf.d/
