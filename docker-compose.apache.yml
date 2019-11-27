@@ -2,7 +2,6 @@ version: '2'
 services:
   apache:
     build: ./apache
-    restart: on-failure
     # ports:
     #   - 8080:80
     logging: 

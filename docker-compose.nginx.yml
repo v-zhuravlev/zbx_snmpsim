@@ -5,7 +5,6 @@ version: '2'
 services:
   nginx-agent:
     build: ./nginx/nginx_agent
-    restart: on-failure
     logging: 
         options:
           max-size: '10m'
