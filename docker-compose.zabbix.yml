@@ -27,7 +27,7 @@ services:
       com.zabbix.company: "Zabbix SIA"
       com.zabbix.component: "zabbix-server"
       com.zabbix.dbtype: "mysql"
-      com.zabbix.os: "ubuntu"
+      com.zabbix.os: "alpine"
 
   zabbix-web-nginx-mysql:
     image: zabbix/zabbix-web-nginx-mysql:alpine-latest
