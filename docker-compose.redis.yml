@@ -1,0 +1,26 @@
+version: '2'
+services:
+  
+  redis-master:
+    build:
+      context: ./redis
+      dockerfile: Dockerfile
+    command: ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisor.master.conf"]
+    ports:
+      - "6379:6379"
+
+  redis-slave1:
+    build:
+      context: ./redis
+      dockerfile: Dockerfile
+    command: ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisor.replica.conf"]
+    ports:
+      - "6380:6379"
+
+  redis-slave2:
+    build:
+      context: ./redis
+      dockerfile: Dockerfile
+    command: ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisor.replica.conf"]
+    ports:
+      - "6381:6379"
