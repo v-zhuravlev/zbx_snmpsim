@@ -1,0 +1,18 @@
+# Author: Maxim Chudinov
+# Description: start haproxy container
+#
+version: '2'
+services:
+  haproxy:
+    image: haproxy:2.0-alpine
+    ports:
+      - "88:88"
+      - "9000:9000"
+    volumes:
+      - ./haproxy/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:rw
+#    user: root
+    logging:
+        options:
+          max-size: '10m'
+          max-file: '5'
+
