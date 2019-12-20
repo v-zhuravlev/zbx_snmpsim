@@ -75,21 +75,3 @@ where community can be found by running:
 ```
 $ snmpwalk -c index -v 2c localhost .1.3
 ```
-
-### How to redefine host settings on creation
-
-Work in progress!  
-Base templates depends on the filename. Some logic how template are choosen by default is defined here: `bin/snmpsim_rules.py#set_templates()`  
-
-//TODO:  
-You can rewrite any template settings by creating host.json file nearby host.snmpec file.  
-For example:
-
-```json
-    {
-        "templates":[
-            "Template OS Linux",
-            "Template ICMP Ping"
-        ]
-    }
-```
