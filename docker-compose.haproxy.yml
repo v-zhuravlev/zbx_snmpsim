@@ -1,0 +1,18 @@
+# Author: Maxim Chudinov
+# Description: start haproxy container with zabbix-agent
+#
+version: '3.5'
+services:
+  haproxy:
+    build:
+      context: ./haproxy
+      cache_from:
+        - haproxy:2.0
+    image: haproxy-zabbix-agent:2.0-debian10
+    ports:
+      - "88:88"
+      - "8404:8404"
+    volumes:
+      - ./haproxy/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:rw
+      - ./haproxy/zabbix_agentd.conf:/etc/zabbix/zabbix_agentd.conf:rw
+    user: root
