@@ -20,6 +20,10 @@ for i in {30..0}; do
 done
 
 if [ -z "$(mysql -uroot -p$MYSQL_ROOT_PASSWORD -e 'show slave status\G' 2>/dev/null)" ]; then
+    mysql -h$host1 -uroot -p$MYSQL_ROOT_PASSWORD -e "CREATE USER 'zbx_monitor'@'%' IDENTIFIED BY 'zabbix'"
+    mysql -h$host1 -uroot -p$MYSQL_ROOT_PASSWORD -e "GRANT USAGE,REPLICATION CLIENT,PROCESS,SHOW DATABASES,SHOW VIEW ON *.* TO 'zbx_monitor'@'%'"
+    mysql -uroot -p$MYSQL_ROOT_PASSWORD -e "CREATE USER 'zbx_monitor'@'%' IDENTIFIED BY 'zabbix'"
+    mysql -uroot -p$MYSQL_ROOT_PASSWORD -e "GRANT USAGE,REPLICATION CLIENT,PROCESS,SHOW DATABASES,SHOW VIEW ON *.* TO 'zbx_monitor'@'%'"
     echo "Start replication on the second server..."
     master=$(mysql -h$host1 -uroot -p$MYSQL_ROOT_PASSWORD -e 'show master status\G' 2>/dev/null)
     master_file=$(echo "$master" | awk /File:/{'print $2'})
