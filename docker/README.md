@@ -4,7 +4,7 @@ Simple Docker engine simulator for testing metrics collection with Zabbix
 
 ## How to run
 
-- Go to the [zbx_snmpsim](https://github.com/v-zhuravlev/zbx_snmpsim) root directory
+- Go to the [zbx_snmpsim](https://github.com/v-zhuravlev/zbx_snmpsim/tree/docker) root directory
 
 - Build images of the latest versions (strongly recommended):
 
