@@ -1,0 +1,10 @@
+version: '2'
+services:
+  
+  docker-daemon:
+    build:
+      context: ./docker
+      dockerfile: Dockerfile
+    command: ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisor.conf"]
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
