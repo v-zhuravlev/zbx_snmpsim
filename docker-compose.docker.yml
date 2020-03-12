@@ -1,7 +1,7 @@
 version: '2'
 services:
   
-  docker-daemon:
+  docker-engine:
     build:
       context: ./docker
       dockerfile: Dockerfile
