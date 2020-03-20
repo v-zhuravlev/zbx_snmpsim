@@ -24,7 +24,7 @@ docker-compose -f docker-compose.memcached.yml up -d
 docker-compose -f docker-compose.zabbix.yml up -d
 ```
 
-- Log in to the Zabbix frontend and import Memcached templates `template_app_nginx*.xml`.
+- Log in to the Zabbix frontend and import Memcached templates `template_app_memcached.xml`.
 
 - Run the command to automatically add hosts to Zabbix:
 
