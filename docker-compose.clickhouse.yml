@@ -1,0 +1,69 @@
+version: "2"
+services:
+  zookeeper:
+    image: zookeeper
+    ports:
+      - 2181:2181
+
+  ch1:
+    build:
+      context: ./clickhouse
+      dockerfile: Dockerfile.ch1
+    depends_on:
+      - zookeeper
+    ports:
+      - 8123:8123
+      - 9011:9000
+    volumes:
+      - "~/clickhouse/ch1_volume:/var/lib/clickhouse"
+
+  ch2:
+    build:
+      context: ./clickhouse
+      dockerfile: Dockerfile.ch2
+    depends_on:
+      - zookeeper
+    ports:
+      - 8223:8123
+      - 9012:9000
+    volumes:
+      - "~/clickhouse/ch2_volume:/var/lib/clickhouse"
+
+  ch3:
+    build:
+      context: ./clickhouse
+      dockerfile: Dockerfile.ch3
+    depends_on:
+      - zookeeper
+    ports:
+      - 8323:8123
+      - 9013:9000
+    volumes:
+      - "~/clickhouse/ch3_volume:/var/lib/clickhouse"
+
+  ch4:
+    build:
+      context: ./clickhouse
+      dockerfile: Dockerfile.ch4
+    depends_on:
+      - zookeeper
+    ports:
+      - 8423:8123
+      - 9014:9000
+    volumes:
+      - "~/clickhouse/ch4_volume:/var/lib/clickhouse"
+
+  exporter:
+    image: f1yegor/clickhouse-exporter
+    ports:
+      - 9116:9116
+    command: 
+      - "-scrape_uri=http://ch2:8123/"
+
+  zabbix-ch:
+    image: zabbix/zabbix-agent:alpine-latest
+    ports:
+      - "10050:10050"
+    environment:
+      - ZBX_SERVER_HOST=zabbix-server
+      - ZBX_ACTIVE_ALLOW=false 

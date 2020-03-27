@@ -1,0 +1,36 @@
+<yandex>
+    <clickhouse_remote_servers>
+        <ua_cluster>
+            <!-- shard 01 -->
+            <shard>
+                <replica>
+                    <host>ch1</host>
+                    <port>9000</port>
+                </replica>
+                <replica>
+                    <host>ch2</host>
+                    <port>9000</port>
+                </replica>
+            </shard>
+
+            <!-- shard 02 -->
+            <shard>
+                <replica>
+                    <host>ch3</host>
+                    <port>9000</port>
+                </replica>
+                <replica>
+                    <host>ch4</host>
+                    <port>9000</port>
+                </replica>
+            </shard>
+        </ua_cluster>
+    </clickhouse_remote_servers>
+
+    <zookeeper-servers>
+        <node index="1">
+            <host>zookeeper</host>
+            <port>2181</port>
+        </node>
+    </zookeeper-servers>
+</yandex>
