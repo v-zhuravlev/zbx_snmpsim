@@ -54,11 +54,8 @@
             <networks incl="networks" replace="replace">
                 <ip>::/0</ip>
             </networks>
-            <profile>readonly</profile>
+            <profile>default</profile>
             <quota>default</quota>
-            <allow_databases>
-                <database>test</database>
-            </allow_databases>
         </zabbix>
    </users>
 
