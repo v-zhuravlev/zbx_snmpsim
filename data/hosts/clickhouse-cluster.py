@@ -19,12 +19,7 @@ def create_host(zapi):
                 "value": ""
             }
         ],
-        "macros": [
-            {
-                "macro": "{$CLICKHOUSE.PASSWORD}",
-                "value": "web"
-            }
-        ],
+        
         "templates": [
             zapi.template.get(filter={"name": "Template DB ClickHouse by HTTP"}, output=['id'])[0]
         ],
@@ -53,12 +48,7 @@ def create_host(zapi):
             zapi.template.get(filter={"name": "Template DB ClickHouse by HTTP"}, output=['id'])[0]
         ],
 
-        "macros": [
-            {
-                "macro": "{$CLICKHOUSE.PASSWORD}",
-                "value": "web"
-            }
-        ],
+
         "inventory_mode": 0
     }
 
@@ -84,12 +74,7 @@ def create_host(zapi):
         "templates": [
             zapi.template.get(filter={"name": "Template DB ClickHouse by HTTP"}, output=['id'])[0]
         ],
-        "macros": [
-            {
-                "macro": "{$CLICKHOUSE.PASSWORD}",
-                "value": "web"
-            }
-        ],
+
         "inventory_mode": 0
     }
 
@@ -115,12 +100,7 @@ def create_host(zapi):
         "templates": [
             zapi.template.get(filter={"name": "Template DB ClickHouse by HTTP"}, output=['id'])[0]
         ],
-        "macros": [
-            {
-                "macro": "{$CLICKHOUSE.PASSWORD}",
-                "value": "web"
-            }
-        ],
+
         "inventory_mode": 0
     }
 

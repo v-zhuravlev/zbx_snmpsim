@@ -1,0 +1,11 @@
+FROM zabbix/zabbix-agent:alpine-latest
+
+USER root
+RUN apk --no-cache add curl supervisor
+
+COPY supervisor.conf /etc/supervisor/
+COPY zabbix_agentd.conf /etc/zabbix/zabbix_agentd.conf
+COPY fill_db.sh /etc/fill_db.sh
+COPY create_db.sh /etc/create_db.sh
+
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisor.conf"]

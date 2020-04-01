@@ -14,8 +14,8 @@ services:
     ports:
       - 8123:8123
       - 9011:9000
-    volumes:
-      - "~/clickhouse/ch1_volume:/var/lib/clickhouse"
+    # volumes:
+    #   - "~/clickhouse/ch1_volume:/var/lib/clickhouse"
 
   ch2:
     build:
@@ -26,8 +26,8 @@ services:
     ports:
       - 8223:8123
       - 9012:9000
-    volumes:
-      - "~/clickhouse/ch2_volume:/var/lib/clickhouse"
+    # volumes:
+    #   - "~/clickhouse/ch2_volume:/var/lib/clickhouse"
 
   ch3:
     build:
@@ -38,8 +38,8 @@ services:
     ports:
       - 8323:8123
       - 9013:9000
-    volumes:
-      - "~/clickhouse/ch3_volume:/var/lib/clickhouse"
+    # volumes:
+    #   - "~/clickhouse/ch3_volume:/var/lib/clickhouse"
 
   ch4:
     build:
@@ -50,20 +50,12 @@ services:
     ports:
       - 8423:8123
       - 9014:9000
-    volumes:
-      - "~/clickhouse/ch4_volume:/var/lib/clickhouse"
-
-  exporter:
-    image: f1yegor/clickhouse-exporter
-    ports:
-      - 9116:9116
-    command: 
-      - "-scrape_uri=http://ch2:8123/"
+    # volumes:
+    #   - "~/clickhouse/ch4_volume:/var/lib/clickhouse"
 
   zabbix-ch:
-    image: zabbix/zabbix-agent:alpine-latest
+    build:
+      context: ./clickhouse
+      dockerfile: Dockerfile_z
     ports:
       - "10050:10050"
-    environment:
-      - ZBX_SERVER_HOST=zabbix-server
-      - ZBX_ACTIVE_ALLOW=false 

@@ -43,7 +43,9 @@ COPY ["./users.xml", "/etc/clickhouse-server/users.xml"]
 COPY ["./dictionary.xml", "/etc/clickhouse-server/dictionary.xml"]
 
 RUN chmod +x /bin/gosu
-
+EXPOSE 9000 8123 9009
 VOLUME /var/lib/clickhouse
+
+USER clickhouse
 CMD ["clickhouse-server", "--config-file=/etc/clickhouse-server/config.xml"]
 
