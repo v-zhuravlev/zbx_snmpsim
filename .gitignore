@@ -111,3 +111,4 @@ venv.bak/
 raw
 unsorted
 zbx_volumes/
+.DS_Store
