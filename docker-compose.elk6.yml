@@ -1,0 +1,107 @@
+# Origin from https://github.com/deviantony/docker-elk
+#
+# Author: Maxim Chudinov
+# Description: start ELK6 containers
+# If you encounter any problems, please see that page https://www.elastic.co/guide/en/elasticsearch/reference/6.5/docker.html .
+
+version: '3.2'
+
+services:
+  elasticsearch:
+    build:
+      context: elk/elasticsearch/
+      args:
+        ELK_VERSION: $ELK_VERSION
+    volumes:
+      - ./elk/elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro
+    container_name: elasticsearch
+    environment:
+      - "ELASTIC_PASSWORD=changeme"
+      - "ES_JAVA_OPTS=-Xms256m -Xmx256m"
+      - node.name=elasticsearch
+      - cluster.name=es-docker-cluster
+      - "discovery.zen.ping.unicast.hosts=elasticsearch2,elasticsearch3"
+      - bootstrap.memory_lock=true
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    ports:
+      - 9200:9200
+
+  elasticsearch2:
+    build:
+      context: elk/elasticsearch/
+      args:
+        ELK_VERSION: $ELK_VERSION
+    volumes:
+      - ./elk/elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro
+    container_name: elasticsearch2
+    environment:
+      - "ELASTIC_PASSWORD=changeme"
+      - "ES_JAVA_OPTS=-Xms256m -Xmx256m"
+      - node.name=elasticsearch2
+      - cluster.name=es-docker-cluster
+      - "discovery.zen.ping.unicast.hosts=elasticsearch,elasticsearch3"
+      - bootstrap.memory_lock=true
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+
+  elasticsearch3:
+    build:
+      context: elk/elasticsearch/
+      args:
+        ELK_VERSION: $ELK_VERSION
+    volumes:
+      - ./elk/elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro
+    container_name: elasticsearch3
+    environment:
+      - "ELASTIC_PASSWORD=changeme"
+      - "ES_JAVA_OPTS=-Xms256m -Xmx256m"
+      - node.name=elasticsearch3
+      - cluster.name=es-docker-cluster
+      - "discovery.zen.ping.unicast.hosts=elasticsearch,elasticsearch2"
+      - bootstrap.memory_lock=true
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+
+  logstash:
+    build:
+      context: elk/logstash/
+      args:
+        ELK_VERSION: $ELK_VERSION
+    volumes:
+      - ./elk/logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml
+      - ./elk/logstash/pipeline:/usr/share/logstash/pipeline:ro
+    ports:
+      - "5000:5000/tcp"
+      - "5000:5000/udp"
+      - "9600:9600"
+    container_name: logstash
+    environment:
+      LS_JAVA_OPTS: "-Xmx256m -Xms256m"
+      XPACK_MONITORING_ELASTICSEARCH_HOSTS: http://elasticsearch:9200
+    depends_on:
+      - elasticsearch
+
+  kibana:
+    build:
+      context: elk/kibana/
+      args:
+        ELK_VERSION: $ELK_VERSION
+    volumes:
+      - ./elk/kibana/config/kibana.yml:/usr/share/kibana/config/kibana.yml
+    container_name: kibana
+    environment:
+      ELASTICSEARCH_URL: http://elasticsearch:9200
+      ELASTICSEARCH_HOSTS: http://elasticsearch:9200
+    ports:
+      - "5601:5601"
+    depends_on:
+      - elasticsearch
+
+
