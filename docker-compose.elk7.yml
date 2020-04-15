@@ -7,6 +7,27 @@
 version: '3.2'
 
 services:
+  elasticsearch0:
+    build:
+      context: elk/elasticsearch/
+      args:
+        ELK_VERSION: $ELK_VERSION
+    volumes:
+      - ./elk/elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro
+    container_name: elasticsearch0
+    environment:
+      - "ELASTIC_PASSWORD=changeme"
+      - "ES_JAVA_OPTS=-Xms256m -Xmx256m"
+      - node.name=elasticsearch0
+      - discovery.type=single-node
+      - bootstrap.memory_lock=true
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    ports:
+      - 9200:9200
+
   elasticsearch:
     build:
       context: elk/elasticsearch/
@@ -20,8 +41,8 @@ services:
       - "ES_JAVA_OPTS=-Xms256m -Xmx256m"
       - node.name=elasticsearch
       - cluster.name=es-docker-cluster
-      - discovery.seed_hosts=elasticsearch2,elasticsearch3
-      - cluster.initial_master_nodes=elasticsearch,elasticsearch2,elasticsearch3
+      - discovery.seed_hosts=elasticsearch,elasticsearch2,elasticsearch3,elasticsearch4
+      - cluster.initial_master_nodes=elasticsearch,elasticsearch2,elasticsearch3,elasticsearch4
       - bootstrap.memory_lock=true
     ulimits:
       memlock:
@@ -43,8 +64,8 @@ services:
       - "ES_JAVA_OPTS=-Xms256m -Xmx256m"
       - node.name=elasticsearch2
       - cluster.name=es-docker-cluster
-      - discovery.seed_hosts=elasticsearch,elasticsearch3
-      - cluster.initial_master_nodes=elasticsearch,elasticsearch2,elasticsearch3
+      - discovery.seed_hosts=elasticsearch,elasticsearch2,elasticsearch3,elasticsearch4
+      - cluster.initial_master_nodes=elasticsearch,elasticsearch2,elasticsearch3,elasticsearch4
       - bootstrap.memory_lock=true
     ulimits:
       memlock:
@@ -64,8 +85,33 @@ services:
       - "ES_JAVA_OPTS=-Xms256m -Xmx256m"
       - node.name=elasticsearch3
       - cluster.name=es-docker-cluster
-      - discovery.seed_hosts=elasticsearch,elasticsearch2
-      - cluster.initial_master_nodes=elasticsearch,elasticsearch2,elasticsearch3
+      - discovery.seed_hosts=elasticsearch,elasticsearch2,elasticsearch3,elasticsearch4
+      - cluster.initial_master_nodes=elasticsearch,elasticsearch2,elasticsearch3,elasticsearch4
+      - bootstrap.memory_lock=true
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+
+  elasticsearch4:
+    build:
+      context: elk/elasticsearch/
+      args:
+        ELK_VERSION: $ELK_VERSION
+#    image: docker.elastic.co/elasticsearch/elasticsearch:7.5.0
+    volumes:
+      - ./elk/elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro
+    container_name: elasticsearch4
+    environment:
+      - "ELASTIC_PASSWORD=changeme"
+      - "ES_JAVA_OPTS=-Xms256m -Xmx256m"
+      - node.name=elasticsearch4
+      - node.master=true
+      - node.data=false
+      - node.ingest=false
+      - cluster.name=es-docker-cluster
+      - discovery.seed_hosts=elasticsearch,elasticsearch2,elasticsearch3,elasticsearch4
+      - cluster.initial_master_nodes=elasticsearch,elasticsearch2,elasticsearch3,elasticsearch4
       - bootstrap.memory_lock=true
     ulimits:
       memlock:

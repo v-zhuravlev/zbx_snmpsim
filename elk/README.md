@@ -12,17 +12,19 @@ ELK_VERSION=6.7.0
 - Build images of the latest versions (strongly recommended):
 
 ```bash
-docker-compose -f docker-compose.es6.yml build --pull
-or
-docker-compose -f docker-compose.es7.yml build --pull
+docker-compose -f docker-compose.es<6|7>.yml build --pull
 ```
 
-- Run ES:
+- Run ES cluster:
 
 ```bash
-docker-compose -f docker-compose.es6.yml up -d
-or
-docker-compose -f docker-compose.es7.yml up -d
+docker-compose -f docker-compose.es<6|7>.yml up -d elasticsearch elasticsearch2 elasticsearch3 elasticsearch4 kibana logstash
+```
+
+- Run ES stand-alone:
+
+```bash
+docker-compose -f docker-compose.es<6|7>.yml up -d elasticsearch0
 ```
 
 - Run a complete Zabbix installation:
