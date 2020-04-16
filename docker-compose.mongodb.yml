@@ -144,4 +144,21 @@ services:
     ports:
       - 27130:27017
 
-  
+
+
+  exporter_shard:
+    image: eses/mongodb_exporter
+    container_name: exporter_shard
+    environment: 
+      - MONGODB_URI=mongodb://shard01-a:27017
+    ports:
+      - 9104:9104
+
+
+  exporter_mongos:
+    image: eses/mongodb_exporter
+    container_name: exporter_mongos
+    environment: 
+      - MONGODB_URI=mongodb://router01:27017
+    ports:
+      - 9114:9104
