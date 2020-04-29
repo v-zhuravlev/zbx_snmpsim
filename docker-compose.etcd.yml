@@ -15,6 +15,7 @@ services:
       - ETCD_INITIAL_CLUSTER_TOKEN=etcd-cluster
       - ETCD_INITIAL_CLUSTER=etcd1=http://etcd1:2380,etcd2=http://etcd2:2380,etcd3=http://etcd3:2380
       - ETCD_INITIAL_CLUSTER_STATE=new
+      - ETCDCTL_API=3
   etcd2:
     ports:
       - 3379:2379
@@ -29,6 +30,7 @@ services:
       - ETCD_INITIAL_CLUSTER_TOKEN=etcd-cluster
       - ETCD_INITIAL_CLUSTER=etcd1=http://etcd1:2380,etcd2=http://etcd2:2380,etcd3=http://etcd3:2380
       - ETCD_INITIAL_CLUSTER_STATE=new
+      - ETCDCTL_API=3
   etcd3:
     image: quay.io/coreos/etcd
     ports:
@@ -43,3 +45,4 @@ services:
       - ETCD_INITIAL_CLUSTER_TOKEN=etcd-cluster
       - ETCD_INITIAL_CLUSTER=etcd1=http://etcd1:2380,etcd2=http://etcd2:2380,etcd3=http://etcd3:2380
       - ETCD_INITIAL_CLUSTER_STATE=new
+      - ETCDCTL_API=3
