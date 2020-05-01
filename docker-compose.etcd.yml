@@ -2,7 +2,7 @@ version: '2'
 
 services:
   etcd1:
-    image: quay.io/coreos/etcd
+    image: quay.io/coreos/etcd:v3.4.6
     ports:
       - 2379:2379
     environment:
@@ -17,9 +17,7 @@ services:
       - ETCD_INITIAL_CLUSTER_STATE=new
       - ETCDCTL_API=3
   etcd2:
-    ports:
-      - 3379:2379
-    image: quay.io/coreos/etcd
+    image: quay.io/coreos/etcd:v3.4.6
     environment:
       - ALLOW_NONE_AUTHENTICATION=yes
       - ETCD_NAME=etcd2
@@ -32,9 +30,7 @@ services:
       - ETCD_INITIAL_CLUSTER_STATE=new
       - ETCDCTL_API=3
   etcd3:
-    image: quay.io/coreos/etcd
-    ports:
-      - 4379:2379
+    image: quay.io/coreos/etcd:v3.4.6
     environment:
       - ALLOW_NONE_AUTHENTICATION=yes
       - ETCD_NAME=etcd3

@@ -2,46 +2,46 @@ version: '2'
 
 services:
 
-  etcdv2_1:
+  etcd32_1:
     image: quay.io/coreos/etcd:v3.2
     ports:
       - 5379:2379
     environment:
       - ALLOW_NONE_AUTHENTICATION=yes
-      - ETCD_NAME=etcdv2_1
-      - ETCD_INITIAL_ADVERTISE_PEER_URLS=http://etcdv2_1:2380
+      - ETCD_NAME=etcd32_1
+      - ETCD_INITIAL_ADVERTISE_PEER_URLS=http://etcd32_1:2380
       - ETCD_LISTEN_PEER_URLS=http://0.0.0.0:2380
       - ETCD_LISTEN_CLIENT_URLS=http://0.0.0.0:2379
-      - ETCD_ADVERTISE_CLIENT_URLS=http://etcdv2_1:2379
+      - ETCD_ADVERTISE_CLIENT_URLS=http://etcd32_1:2379
       - ETCD_INITIAL_CLUSTER_TOKEN=etcd32-cluster
-      - ETCD_INITIAL_CLUSTER=etcdv2_1=http://etcdv2_1:2380,etcdv2_2=http://etcdv2_2:2380,etcdv2_3=http://etcdv2_3:2380
+      - ETCD_INITIAL_CLUSTER=etcd32_1=http://etcd32_1:2380,etcd32_2=http://etcd32_2:2380,etcd32_3=http://etcd32_3:2380
       - ETCD_INITIAL_CLUSTER_STATE=new
       - ETCDCTL_API=2
-  etcdv2_2:
+  etcd32_2:
     image: quay.io/coreos/etcd:v3.2
     environment:
       - ALLOW_NONE_AUTHENTICATION=yes
-      - ETCD_NAME=etcdv2_2
-      - ETCD_INITIAL_ADVERTISE_PEER_URLS=http://etcdv2_2:2380
+      - ETCD_NAME=etcd32_2
+      - ETCD_INITIAL_ADVERTISE_PEER_URLS=http://etcd32_2:2380
       - ETCD_LISTEN_PEER_URLS=http://0.0.0.0:2380
       - ETCD_LISTEN_CLIENT_URLS=http://0.0.0.0:2379
-      - ETCD_ADVERTISE_CLIENT_URLS=http://etcdv2_2:2379
+      - ETCD_ADVERTISE_CLIENT_URLS=http://etcd32_2:2379
       - ETCD_INITIAL_CLUSTER_TOKEN=etcd32-cluster
-      - ETCD_INITIAL_CLUSTER=etcdv2_1=http://etcdv2_1:2380,etcdv2_2=http://etcdv2_2:2380,etcdv2_3=http://etcdv2_3:2380
+      - ETCD_INITIAL_CLUSTER=etcd32_1=http://etcd32_1:2380,etcd32_2=http://etcd32_2:2380,etcd32_3=http://etcd32_3:2380
       - ETCD_INITIAL_CLUSTER_STATE=new
       - ETCDCTL_API=2
 
-  etcdv2_3:
+  etcd32_3:
     image: quay.io/coreos/etcd:v3.2
     environment:
       - ALLOW_NONE_AUTHENTICATION=yes
-      - ETCD_NAME=etcdv2_3
-      - ETCD_INITIAL_ADVERTISE_PEER_URLS=http://etcdv2_3:2380
+      - ETCD_NAME=etcd32_3
+      - ETCD_INITIAL_ADVERTISE_PEER_URLS=http://etcd32_3:2380
       - ETCD_LISTEN_PEER_URLS=http://0.0.0.0:2380
       - ETCD_LISTEN_CLIENT_URLS=http://0.0.0.0:2379
-      - ETCD_ADVERTISE_CLIENT_URLS=http://etcdv2_3:2379
+      - ETCD_ADVERTISE_CLIENT_URLS=http://etcd32_3:2379
       - ETCD_INITIAL_CLUSTER_TOKEN=etcd32-cluster
-      - ETCD_INITIAL_CLUSTER=etcdv2_1=http://etcdv2_1:2380,etcdv2_2=http://etcdv2_2:2380,etcdv2_3=http://etcdv2_3:2380
+      - ETCD_INITIAL_CLUSTER=etcd32_1=http://etcd32_1:2380,etcd32_2=http://etcd32_2:2380,etcd32_3=http://etcd32_3:2380
       - ETCD_INITIAL_CLUSTER_STATE=new
       - ETCDCTL_API=2
 
