@@ -20,7 +20,7 @@ def create_host(zapi):
             }
         ],
         "templates": [
-            zapi.template.get(filter={"name": "Template App Etcd Cluster by HTTP"}, output=['id'])[0]
+            zapi.template.get(filter={"name": "Template App Etcd by HTTP"}, output=['id'])[0]
         ],
         "inventory_mode": 0
     }
@@ -45,7 +45,7 @@ def create_host(zapi):
             }
         ],
         "templates": [
-            zapi.template.get(filter={"name": "Template App Etcd Cluster by HTTP"}, output=['id'])[0]
+            zapi.template.get(filter={"name": "Template App Etcd by HTTP"}, output=['id'])[0]
         ],
         "inventory_mode": 0
     }
@@ -70,7 +70,7 @@ def create_host(zapi):
             }
         ],
         "templates": [
-            zapi.template.get(filter={"name": "Template App Etcd Cluster by HTTP"}, output=['id'])[0]
+            zapi.template.get(filter={"name": "Template App Etcd by HTTP"}, output=['id'])[0]
         ],
         "inventory_mode": 0
     }
@@ -95,7 +95,7 @@ def create_host(zapi):
             }
         ],
         "templates": [
-            zapi.template.get(filter={"name": "Template App Etcd Cluster by HTTP"}, output=['id'])[0]
+            zapi.template.get(filter={"name": "Template App Etcd by HTTP"}, output=['id'])[0]
         ],
         "inventory_mode": 0
     }
@@ -121,7 +121,7 @@ def create_host(zapi):
             }
         ],
         "templates": [
-            zapi.template.get(filter={"name": "Template App Etcd Cluster by HTTP"}, output=['id'])[0]
+            zapi.template.get(filter={"name": "Template App Etcd by HTTP"}, output=['id'])[0]
         ],
         "inventory_mode": 0
     }
@@ -146,7 +146,7 @@ def create_host(zapi):
             }
         ],
         "templates": [
-            zapi.template.get(filter={"name": "Template App Etcd Cluster by HTTP"}, output=['id'])[0]
+            zapi.template.get(filter={"name": "Template App Etcd by HTTP"}, output=['id'])[0]
         ],
         "inventory_mode": 0
     }

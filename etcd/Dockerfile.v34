@@ -1,0 +1,9 @@
+FROM quay.io/coreos/etcd:v3.4.6
+
+RUN apt update && apt install -y supervisor procps 
+
+EXPOSE 2379
+COPY supervisor.v34.conf /etc/supervisor/conf.d/
+
+
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisor.v34.conf"]

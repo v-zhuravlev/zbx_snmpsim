@@ -1,0 +1,9 @@
+FROM quay.io/coreos/etcd:v3.2
+
+RUN apk add --no-cache supervisor procps curl
+
+EXPOSE 2379
+COPY supervisor.v32.conf /etc/supervisor/conf.d/
+
+
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisor.v32.conf"]
