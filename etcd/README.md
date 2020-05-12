@@ -5,6 +5,7 @@ Simple Etcd simulator for testing metrics collection with Zabbix
 ## How to run
 
 Use docker-compose.etcd.yml  for running cluster etcd v3.4 with API v3
+
 Use docker-compose.etcd2.yml  for running cluster etcd v3.2 with API v2
 
 Both etcd clusters can work simultaneously.
@@ -30,7 +31,7 @@ docker-compose -f docker-compose.etcd.yml up -d
 docker-compose -f docker-compose.zabbix.yml up -d
 ```
 
-- Log in to the Zabbix frontend and import Nginx templates `template_app_etcd_http.xml`.
+- Log in to the Zabbix frontend and import Etcd templates `template_app_etcd_http.xml`.
 
 - Run the command to automatically add hosts to Zabbix:
 
