@@ -1,0 +1,61 @@
+version: '3.5'
+
+services:
+  zbx-postgres:
+    image: timescale/timescaledb:latest-pg11
+    container_name: zbx-postgres
+    environment:
+    - POSTGRES_DB=zabbix
+    - POSTGRES_USER=zabbix
+    - POSTGRES_PASSWORD=zabbix
+    user: root
+
+
+  zbx-server-pg:
+    image: zabbix/zabbix-server-pgsql:alpine-5.0-latest
+    container_name: zbx-server-pg
+    environment:
+      - DB_SERVER_HOST=zbx-postgres
+      - POSTGRES_USER_FILE=/run/secrets/POSTGRES_USER
+      - POSTGRES_PASSWORD_FILE=/run/secrets/POSTGRES_PASSWORD
+    links:
+      - zbx-postgres
+    secrets:
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+    user: root
+    depends_on:
+      - zbx-postgres
+
+
+
+
+
+  zbx-frontend-pg:
+    image: zabbix/zabbix-web-nginx-pgsql:alpine-5.0-latest
+    container_name: zbx-frontend-pg
+    environment:
+      - DB_SERVER_HOST=zbx-postgres
+      - POSTGRES_USER_FILE=/run/secrets/POSTGRES_USER
+      - POSTGRES_PASSWORD_FILE=/run/secrets/POSTGRES_PASSWORD
+      - ZBX_SERVER_HOST=zbx-server-pg
+      - PHP_TZ="Europe/Moscow"
+    links:
+      - zbx-postgres
+      - zbx-server-pg
+    ports:
+      - 80:8080
+    secrets:
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+    depends_on:
+      - zbx-postgres
+      - zbx-server-pg
+
+
+
+secrets:
+  POSTGRES_USER:
+    file: ./.PG_USER
+  POSTGRES_PASSWORD:
+    file: ./.PG_PASSWORD
