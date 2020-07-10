@@ -1,0 +1,60 @@
+
+version: '3.5'
+services:
+ zabbix-proxy-sqlite3:
+#  image: zabbix/zabbix-proxy-sqlite3:centos-4.4-latest
+  build:
+   context: ./zabbix-proxy-sqlite3_ora
+   cache_from:
+    - zabbix/zabbix-proxy-sqlite3_ora:centos-5.0-latest
+#    - centos:centos7
+  image: zabbix-proxy-sqlite3:centos-local
+  ports:
+   - "10061:10051"
+  volumes:
+
+   - ./zabbix-proxy-sqlite3_ora/zbx_env/etc/odbc.ini:/etc/odbc.ini:rw
+   - ./zabbix-proxy-sqlite3_ora/zbx_env/etc/odbcinst.ini:/etc/odbcinst.ini:rw
+   - ./zabbix-proxy-sqlite3_ora/zbx_env/usr/lib/zabbix/externalscripts:/usr/lib/zabbix/externalscripts:ro
+   - ./zabbix-proxy-sqlite3_ora/zbx_env/var/lib/zabbix/modules:/var/lib/zabbix/modules:ro
+   - ./zabbix-proxy-sqlite3_ora/zbx_env/var/lib/zabbix/enc:/var/lib/zabbix/enc:ro
+   - ./zabbix-proxy-sqlite3_ora/zbx_env/var/lib/zabbix/ssh_keys:/var/lib/zabbix/ssh_keys:ro
+   - ./zabbix-proxy-sqlite3_ora/zbx_env/var/lib/zabbix/mibs:/var/lib/zabbix/mibs:ro
+   - ./zabbix-proxy-sqlite3_ora/zbx_env/var/lib/zabbix/snmptraps:/var/lib/zabbix/snmptraps:ro
+#  links:
+#   - zabbix-server:zabbix-server
+#   - zabbix-java-gateway:zabbix-java-gateway
+  ulimits:
+   nproc: 65535
+   nofile:
+    soft: 20000
+    hard: 40000
+  deploy:
+   resources:
+    limits:
+      cpus: '0.70'
+      memory: 512M
+    reservations:
+      cpus: '0.3'
+      memory: 256M
+  env_file:
+   - ./zabbix-proxy-sqlite3_ora/.env_prx
+   - ./zabbix-proxy-sqlite3_ora/.env_prx_sqlite3
+  user: root
+ # depends_on:
+ #  - zabbix-java-gateway
+ #  - zabbix-snmptraps
+ # networks:
+ #  zbx_net_backend:
+ #   aliases:
+ #    - zabbix-proxy-sqlite3
+ #    - zabbix-proxy-centos-sqlite3
+ #    - zabbix-proxy-sqlite3-centos
+ #  zbx_net_frontend:
+ # stop_grace_period: 30s
+  labels:
+   com.zabbix.description: "Zabbix proxy with SQLite3 database support"
+   com.zabbix.company: "Zabbix SIA"
+   com.zabbix.component: "zabbix-proxy"
+   com.zabbix.dbtype: "sqlite3"
+   com.zabbix.os: "centos"
