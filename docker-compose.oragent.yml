@@ -1,0 +1,7 @@
+version: '2'
+services:
+
+  agent2:
+    build:
+      context: ./oracle
+      dockerfile: Dockerfile
