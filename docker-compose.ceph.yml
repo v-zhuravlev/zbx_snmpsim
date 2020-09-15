@@ -1,0 +1,4 @@
+version: '2'
+services:
+  ceph-agent2:
+    build: ./ceph
