@@ -80,5 +80,5 @@ WORKDIR /var/lib/zabbix
 
 
 USER 1997
-
+COPY zabbix_agentd.conf /etc/zabbix/zabbix_agent2.conf
 CMD ["/usr/sbin/zabbix_agent2", "--foreground", "-c", "/etc/zabbix/zabbix_agent2.conf"]
