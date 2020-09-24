@@ -1,0 +1,41 @@
+version: '3.5'
+services:
+  cassandra1:
+    image:  cassandra:3
+
+
+    environment:
+      - CASSANDRA_SEEDS=cassandra1,cassandra2
+      - CASSANDRA_CLUSTER_NAME=cassandra-cluster
+      - CASSANDRA_PASSWORD_SEEDER=yes
+      - CASSANDRA_PASSWORD=cassandra
+      # By default, Cassandra autodetects the available host memory and takes as much as it can.
+      # Therefore, memory options are mandatory if multiple Cassandras are launched in the same node.
+      - MAX_HEAP_SIZE=2G
+      - HEAP_NEWSIZE=200M
+
+  cassandra2:
+    image:  cassandra:3
+    environment:
+      - CASSANDRA_SEEDS=cassandra1,cassandra2
+      - CASSANDRA_CLUSTER_NAME=cassandra-cluster
+      - CASSANDRA_PASSWORD=cassandra
+      # By default, Cassandra autodetects the available host memory and takes as much as it can.
+      # Therefore, memory options are mandatory if multiple Cassandras are launched in the same node.
+      - MAX_HEAP_SIZE=2G
+      - HEAP_NEWSIZE=200M
+
+  zabbix-java-gateway:
+    image: zabbix/zabbix-java-gateway:alpine-trunk
+    ports:
+    - "10052:10052"
+    deploy:
+      resources:
+        limits:
+          cpus: 0.5
+          memory: 512M
+        reservations:
+          cpus: 0.25
+          memory: 256M
+    env_file:
+      - .env_java
