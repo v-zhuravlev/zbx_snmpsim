@@ -1,7 +1,7 @@
 version: '2'
 services:
   zabbix-server:
-    image: zabbix/zabbix-server-mysql:alpine-trunk
+    image: zabbix/zabbix-server-mysql:alpine-5.0
     ports:
       - "10051:10051"
     volumes:
@@ -25,7 +25,7 @@ services:
 
 
   zabbix-web-nginx-mysql:
-    image: zabbix/zabbix-web-nginx-mysql:alpine-trunk
+    image: zabbix/zabbix-web-nginx-mysql:alpine-5.0
     ports:
       - "80:8080"
     links:
@@ -39,7 +39,6 @@ services:
   mysql-server:
     image: mysql:5.7
     command: [mysqld, --character-set-server=utf8, --collation-server=utf8_bin]
-    volume_driver: local
     env_file:
       - ./zabbix/.env_db_mysql
     user: root
