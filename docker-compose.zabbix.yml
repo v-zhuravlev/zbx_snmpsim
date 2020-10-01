@@ -1,7 +1,7 @@
 version: '2'
 services:
   zabbix-server:
-    image: zabbix/zabbix-server-mysql:alpine-5.0
+    image: zabbix/zabbix-server-mysql:alpine-5.0-latest
     ports:
       - "10051:10051"
     volumes:
@@ -25,7 +25,7 @@ services:
 
 
   zabbix-web-nginx-mysql:
-    image: zabbix/zabbix-web-nginx-mysql:alpine-5.0
+    image: zabbix/zabbix-web-nginx-mysql:alpine-5.0-latest
     ports:
       - "80:8080"
     links:

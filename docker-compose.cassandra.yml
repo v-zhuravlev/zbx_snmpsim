@@ -3,7 +3,8 @@ services:
   cassandra1:
     image:  cassandra:3
 
-
+    volumes:
+      - ./cassandra/jmxremote.password:/etc/cassandra/jmxremote.password
     environment:
       - CASSANDRA_SEEDS=cassandra1,cassandra2
       - CASSANDRA_CLUSTER_NAME=cassandra-cluster
@@ -17,6 +18,8 @@ services:
       - LOCAL_JMX=no
   cassandra2:
     image:  cassandra:3
+    volumes:
+      - ./cassandra/jmxremote.password:/etc/cassandra/jmxremote.password
     environment:
       - CASSANDRA_SEEDS=cassandra1,cassandra2
       - CASSANDRA_CLUSTER_NAME=cassandra-cluster
