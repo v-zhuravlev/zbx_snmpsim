@@ -1,0 +1,6 @@
+version: '2'
+services:
+  fpm-agent:
+    build: ./php-fpm/php-fpm_agent
+    ports:
+      - "8083:8080"
