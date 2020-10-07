@@ -12,10 +12,10 @@ services:
     ports:
       - "9095:9092"
     environment:
-      - ALLOW_PLAINTEXT_LISTENER = yes
-      - KAFKA_CFG_ZOOKEEPER_CONNECT = zookeeper:2181
-      - KAFKA_JMX_OPTS = "-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Djava.rmi.server.hostname=kafka1 -Dcom.sun.management.jmxremote.rmi.port=1099"
-      - JMX_PORT = 1099
+      - ALLOW_PLAINTEXT_LISTENER=yes
+      - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
+      - KAFKA_JMX_OPTS="-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Djava.rmi.server.hostname=kafka1 -Dcom.sun.management.jmxremote.rmi.port=1099"
+      - JMX_PORT=1099
 
 
   kafka2:
@@ -23,10 +23,10 @@ services:
     ports:
       - "9096:9092"
     environment:
-      - ALLOW_PLAINTEXT_LISTENER = yes
-      - KAFKA_CFG_ZOOKEEPER_CONNECT = zookeeper:2181
-      - KAFKA_JMX_OPTS = "-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Djava.rmi.server.hostname=kafka2 -Dcom.sun.management.jmxremote.rmi.port=1099"
-      - JMX_PORT = 1099
+      - ALLOW_PLAINTEXT_LISTENER=yes
+      - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
+      - KAFKA_JMX_OPTS="-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Djava.rmi.server.hostname=kafka2 -Dcom.sun.management.jmxremote.rmi.port=1099"
+      - JMX_PORT=1099
 
 
   kafka-3:
@@ -34,7 +34,7 @@ services:
     ports:
       - "9097:9092"
     environment:
-      - ALLOW_PLAINTEXT_LISTENER = yes
-      - KAFKA_CFG_ZOOKEEPER_CONNECT = zookeeper:2181
-      - KAFKA_JMX_OPTS = "-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Djava.rmi.server.hostname=kafka3 -Dcom.sun.management.jmxremote.rmi.port=1099"
-      - JMX_PORT = 1099
+      - ALLOW_PLAINTEXT_LISTENER=yes
+      - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
+      - KAFKA_JMX_OPTS="-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Djava.rmi.server.hostname=kafka3 -Dcom.sun.management.jmxremote.rmi.port=1099"
+      - JMX_PORT=1099
