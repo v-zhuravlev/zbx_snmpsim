@@ -31,7 +31,7 @@ services:
       - JMX_PORT=1099
 
 
-  kafka-3:
+  kafka3:
     image: bitnami/kafka:latest
     ports:
       - "9097:9092"
