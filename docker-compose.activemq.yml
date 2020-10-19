@@ -1,0 +1,12 @@
+version: '2'
+services:
+ amq:
+  image: rmohr/activemq:5.15.5
+  ports:
+   - "1099:1099"
+   - "8161:8161"
+  volumes:
+   - ./activemq/conf:/opt/activemq/conf
+   - ./activemq/data:/opt/activemq/data
+  links:
+   - zabbix-server:zabbix-server
