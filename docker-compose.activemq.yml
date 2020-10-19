@@ -8,5 +8,6 @@ services:
   volumes:
    - ./activemq/conf:/opt/activemq/conf
    - ./activemq/data:/opt/activemq/data
+   - ./activemq/conf:/opt/activemq/conf/env:/opt/apache-activemq-5.15.5/bin/env
   links:
    - zabbix-server:zabbix-server
