@@ -1,0 +1,10 @@
+version: '2'
+services:
+  tomcat:
+    build: ./tomcat
+    ports:
+      - "8888:8080"
+      - "9000:9000"
+    volumes:
+      - ./tomcat/webapps:/usr/local/tomcat/webapps
+    hostname: tomcat
