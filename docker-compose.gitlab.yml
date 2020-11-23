@@ -1,0 +1,43 @@
+version: '3.5'
+services:
+  gitlab-web:
+    image: 'gitlab/gitlab-ee:latest'
+    restart: always
+    hostname: 'test.gitlab.local'
+    environment:
+      GITLAB_OMNIBUS_CONFIG: |
+       external_url 'http://test.gitlab.local'
+       gitlab_rails['gitlab_shell_ssh_port'] = 2224
+       letsencrypt['enable'] = false
+       gitlab_rails['monitoring_whitelist'] = ['127.0.0.0/8', '192.168.0.1', '172.19.0.1/16']
+       prometheus['listen_address'] = '0.0.0.0:9090'
+    ports:
+      - '9090:9090'
+      - '8929:80'
+      - '443:443'
+      - '2224:22'
+    volumes:
+      - '/srv/gitlab/config:/etc/gitlab'
+      - '/srv/gitlab/logs:/var/log/gitlab'
+      - '/srv/gitlab/data:/var/opt/gitlab'
+
+  gitlab-unicorn:
+    image: 'gitlab/gitlab-ee:latest'
+    restart: always
+    environment:
+      GITLAB_OMNIBUS_CONFIG: |
+       external_url 'http://test.gitlab.local'
+       gitlab_rails['gitlab_shell_ssh_port'] = 2225
+       letsencrypt['enable'] = false
+       gitlab_rails['monitoring_whitelist'] = ['127.0.0.0/8', '192.168.0.1', '172.19.0.1/16']
+       puma['enable'] = false
+       unicorn['enable'] = true
+       unicorn['worker_processes'] = 3
+       unicorn['worker_timeout'] = 60
+       prometheus['listen_address'] = '0.0.0.0:9090'
+
+    ports:
+      - '9091:9090'
+      - '8930:80'
+      - '444:443'
+      - '2225:22'
