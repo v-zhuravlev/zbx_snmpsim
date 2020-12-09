@@ -43,12 +43,9 @@
                         <bean class="org.apache.ignite.spi.discovery.tcp.ipfinder.vm.TcpDiscoveryVmIpFinder">
                                         <property name="addresses">
                                             <list>
-                                                <!--
-                                                                                                    List all IP/port configurations that potentially
-                                                    can be started first in examples. We are assuming
-                                                    grid of size 10 or less.
-                                                -->
-                                                <value>ignite:47500..47509</value>
+                                                <value>ignite-2:47500..47509</value>
+                                                <value>ignite-3:47500..47509</value>
+                                                <value>ignite-1:47500..47509</value>
                                             </list>
                                         </property>
                         </bean>
