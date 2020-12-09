@@ -31,6 +31,8 @@
             <list>
                 <bean class="org.apache.ignite.spi.metric.jmx.JmxMetricExporterSpi"/>
                 <bean class="org.apache.ignite.spi.metric.sql.SqlViewMetricExporterSpi"/>
+                <bean class="org.apache.ignite.spi.metric.opencensus.OpenCensusMetricExporterSpi"/>
+
             </list>
         </property>
 
