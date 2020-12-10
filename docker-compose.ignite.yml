@@ -11,7 +11,7 @@ services:
               -XX:G1HeapRegionSize=8M -XX:ConcGCThreads=2 -XX:G1HeapWastePercent=10 -XX:+UseTLAB
               -XX:+ScavengeBeforeFullGC -XX:+DisableExplicitGC -Dcom.sun.management.jmxremote 
               -Dcom.sun.management.jmxremote.local.only=false -Dcom.sun.management.jmxremote.authenticate=false
-               -Dcom.sun.management.jmxremote.port=49112 -Dcom.sun.management.jmxremote.rmi.port=49112 -Djava.rmi.server.hostname=ignite-1 -Dcom.sun.management.jmxremote.ssl=false"
+               -Dcom.sun.management.jmxremote.port=49112 -Dcom.sun.management.jmxremote.rmi.port=49112 -Djava.rmi.server.hostname=ignite-1 -Dcom.sun.management.jmxremote.ssl=false -DIGNITE_MBEAN_APPEND_CLASS_LOADER_ID=false"
     volumes:
       - ./ignite/conf:/config
     ports:
@@ -29,7 +29,7 @@ services:
               -XX:G1HeapRegionSize=8M -XX:ConcGCThreads=2 -XX:G1HeapWastePercent=10 -XX:+UseTLAB
               -XX:+ScavengeBeforeFullGC -XX:+DisableExplicitGC -Dcom.sun.management.jmxremote 
               -Dcom.sun.management.jmxremote.local.only=false -Dcom.sun.management.jmxremote.authenticate=false
-               -Dcom.sun.management.jmxremote.port=49112 -Dcom.sun.management.jmxremote.rmi.port=49112 -Djava.rmi.server.hostname=ignite-2 -Dcom.sun.management.jmxremote.ssl=false"
+               -Dcom.sun.management.jmxremote.port=49112 -Dcom.sun.management.jmxremote.rmi.port=49112 -Djava.rmi.server.hostname=ignite-2 -Dcom.sun.management.jmxremote.ssl=false -DIGNITE_MBEAN_APPEND_CLASS_LOADER_ID=false"
     volumes:
       - ./ignite/conf:/config
     ports:
@@ -47,7 +47,7 @@ services:
               -XX:G1HeapRegionSize=8M -XX:ConcGCThreads=2 -XX:G1HeapWastePercent=10 -XX:+UseTLAB
               -XX:+ScavengeBeforeFullGC -XX:+DisableExplicitGC -Dcom.sun.management.jmxremote 
               -Dcom.sun.management.jmxremote.local.only=false -Dcom.sun.management.jmxremote.authenticate=false
-               -Dcom.sun.management.jmxremote.port=49112 -Dcom.sun.management.jmxremote.rmi.port=49112 -Djava.rmi.server.hostname=ignite-3 -Dcom.sun.management.jmxremote.ssl=false"
+               -Dcom.sun.management.jmxremote.port=49112 -Dcom.sun.management.jmxremote.rmi.port=49112 -Djava.rmi.server.hostname=ignite-3 -Dcom.sun.management.jmxremote.ssl=false -DIGNITE_MBEAN_APPEND_CLASS_LOADER_ID=false"
     volumes:
       - ./ignite/conf:/config
     ports:
