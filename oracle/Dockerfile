@@ -80,7 +80,7 @@ RUN set -eux && \
 
 
 ### config agent2
-COPY zbx_snmpsim/oracle/zabbix_agent.conf /etc/zabbix/zabbix_agent2.conf
+COPY ./oracle/zabbix_agent.conf /etc/zabbix/zabbix_agent2.conf
 
 
 EXPOSE 10050/TCP
