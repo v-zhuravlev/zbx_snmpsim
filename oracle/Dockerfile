@@ -80,7 +80,6 @@ RUN set -eux && \
 
 
 ### config agent2
-COPY zbx_snmpsim/oracle/zabbix_agent2 /usr/sbin/zabbix_agent2
 COPY zbx_snmpsim/oracle/zabbix_agent.conf /etc/zabbix/zabbix_agent2.conf
 
 
