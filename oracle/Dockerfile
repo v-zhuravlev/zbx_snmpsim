@@ -43,6 +43,7 @@ RUN set -eux && \
             pcre-devel \
             libcurl-devel \
             make \
+            git \
             openssl-devel \
             gcc && \
     cd /tmp/ && \
