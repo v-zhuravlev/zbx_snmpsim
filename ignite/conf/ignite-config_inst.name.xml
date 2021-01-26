@@ -28,7 +28,6 @@
     -->
     <bean class="org.apache.ignite.configuration.IgniteConfiguration">
         <property name="igniteInstanceName" value="ololo_zbx"/>
-        </property>
 
         <property name="metricExporterSpi">
             <list>
