@@ -61,6 +61,7 @@ services:
     command:
       - --addr=0.0.0.0:20160
       - --advertise-addr=tikv0:20160
+      - --advertise-status-addr=tikv0:20180
       - --data-dir=/data/tikv0
       - --pd=pd0:2379,pd1:2379,pd2:2379
       - --config=/tikv.toml
@@ -77,6 +78,7 @@ services:
     command:
       - --addr=0.0.0.0:20160
       - --advertise-addr=tikv1:20160
+      - --advertise-status-addr=tikv1:20180
       - --data-dir=/data/tikv1
       - --pd=pd0:2379,pd1:2379,pd2:2379
       - --config=/tikv.toml
@@ -93,6 +95,7 @@ services:
     command:
       - --addr=0.0.0.0:20160
       - --advertise-addr=tikv2:20160
+      - --advertise-status-addr=tikv2:20180
       - --data-dir=/data/tikv2
       - --pd=pd0:2379,pd1:2379,pd2:2379
       - --config=/tikv.toml
