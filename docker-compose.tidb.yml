@@ -132,7 +132,7 @@ services:
       SPARK_MASTER_WEBUI_PORT: 8080
     ports:
       - "7077:7077"
-      - "8080:8080"
+      - "8085:8080"
     depends_on:
       - "tikv0"
       - "tikv1"
@@ -162,11 +162,7 @@ services:
     restart: on-failure
 
   # monitors
-  pushgateway:
-    image: prom/pushgateway:v0.3.1
-    command:
-      - --log.level=error
-    restart: on-failure
+
   prometheus:
     user: root
     image: prom/prometheus:v2.2.1
