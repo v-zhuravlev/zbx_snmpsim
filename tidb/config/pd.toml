@@ -48,9 +48,9 @@ level = "error"
 
 [metric]
 # prometheus client push interval, set "0s" to disable prometheus.
-interval = "15s"
+interval = "0"
 # prometheus pushgateway address, leaves it empty will disable prometheus.
-address = "pushgateway:9091"
+address = ""
 
 [schedule]
 max-merge-region-size = 0

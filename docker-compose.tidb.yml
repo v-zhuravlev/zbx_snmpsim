@@ -54,8 +54,8 @@ services:
     restart: on-failure
   tikv0:
     image: pingcap/tikv:latest
-    ports:
-      - "20181:20181"
+    # ports:
+    #   - "20181:20181"
     volumes:
       - ./tidb/config/tikv.toml:/tikv.toml:ro
     command:
@@ -132,7 +132,7 @@ services:
       SPARK_MASTER_WEBUI_PORT: 8080
     ports:
       - "7077:7077"
-      - "8085:8080"
+      - "8095:8080"
     depends_on:
       - "tikv0"
       - "tikv1"
