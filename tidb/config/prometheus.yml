@@ -1,0 +1,30 @@
+global:
+  scrape_interval:     1m
+  evaluation_interval: 1m
+scrape_configs:
+
+  - job_name: 'tidb'
+    honor_labels: true  # Do not overwrite job & instance labels.
+    static_configs:
+    - targets:
+      - 'tidb:10080'
+
+  - job_name: 'pd'
+    honor_labels: true  # Do not overwrite job & instance labels.
+    static_configs:
+    - targets:
+      - 'pd0:2379'
+      - 'pd1:2379'
+      - 'pd2:2379'
+
+  - job_name: 'tikv'
+    honor_labels: true  # Do not overwrite job & instance labels.
+    static_configs:
+    - targets:
+      - 'tikv0:20180'
+      - 'tikv1:20180'
+      - 'tikv2:20180'
+rule_files:
+  - 'pd.rules.yml'
+  - 'tikv.rules.yml'
+  - 'tidb.rules.yml'
