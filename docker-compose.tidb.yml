@@ -54,8 +54,6 @@ services:
     restart: on-failure
   tikv0:
     image: pingcap/tikv:latest
-    # ports:
-    #   - "20181:20181"
     volumes:
       - ./tidb/config/tikv.toml:/tikv.toml:ro
     command:
