@@ -1,0 +1,13 @@
+version: '2'
+services:
+  wildfly-standalone:
+    build: ./jboss/standalone
+    ports:
+      - "8090:8080"
+      - "9990:9990"
+
+  wildfly-domain:
+    build: ./jboss/domain
+    ports:
+      - "8091:8080"
+      - "9991:9990"
