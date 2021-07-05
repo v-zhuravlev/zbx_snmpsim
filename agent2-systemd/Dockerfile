@@ -16,7 +16,7 @@ RUN set -eux && INSTALL_PKGS="bash \
             pcre \
             libcurl" && \
     REPOLIST="rhel-8-for-x86_64-baseos-rpms,rhel-8-for-x86_64-appstream-rpms" && \
-    dnf -y update-minimal --disablerepo "*" --enablerepo ubi-8-baseos --setopt=tsflags=nodocs \
+    dnf -y upgrade --disablerepo "*" --enablerepo ubi-8-baseos --setopt=tsflags=nodocs \
         --security --sec-severity=Important --sec-severity=Critical && \
     dnf -y install --disablerepo "*" --enablerepo "${REPOLIST}" --setopt=install_weak_deps=False --best \
         --setopt=tsflags=nodocs ${INSTALL_PKGS} && \

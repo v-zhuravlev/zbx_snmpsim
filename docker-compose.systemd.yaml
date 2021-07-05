@@ -4,10 +4,6 @@ services:
   build:
    context: ./agent2-systemd
    dockerfile: Dockerfile
-
-  profiles:
-   - full
-   - all
   ports:
    - "10050:10050"
   volumes:
