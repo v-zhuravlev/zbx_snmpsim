@@ -1,0 +1,19 @@
+version: '3.5'
+services:
+ zabbix-agent:
+  build:
+   context: ./agent2-systemd
+   dockerfile: Dockerfile
+
+  profiles:
+   - full
+   - all
+  ports:
+   - "10050:10050"
+  volumes:
+   - /sys/fs/cgroup:/sys/fs/cgroup:ro
+   - ./zbx_env/etc/zabbix/zabbix_agentd.d:/etc/zabbix/zabbix_agentd.d:ro
+  privileged: true
+  networks:
+   zabbix_54_default:
+  stop_grace_period: 5s
