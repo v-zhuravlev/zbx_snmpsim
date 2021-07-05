@@ -8,61 +8,71 @@ Zabbix is software that monitors numerous parameters of a network and the health
 
 For more information and related downloads for Zabbix components, please visit https://hub.docker.com/u/zabbix/ and https://zabbix.com
 
-# What is Zabbix agent 2?
+# What is Zabbix agent?
 
-Zabbix agent 2 is deployed on a monitoring target to actively monitor local resources and applications (hard drives, memory, processor statistics etc).
+Zabbix agent is deployed on a monitoring target to actively monitor local resources and applications (hard drives, memory, processor statistics etc).
 
-# Zabbix agent 2 images
+# Zabbix agent images
 
-These are the only official Zabbix agent 2 Docker images. They are based on Alpine Linux v3.12 images. The available versions of Zabbix agent 2 are:
+These are the only official Zabbix agent Docker images. They are based on Alpine Linux v3.12, Ubuntu 20.04 (focal), CentOS 8 and Oracle Linux 8 images. The available versions of Zabbix agent are:
 
-    Zabbix agent 2 4.4 (tags: alpine-4.4-latest) (unsupported)
-    Zabbix agent 2 4.4.* (tags: alpine-4.4.*) (unsupported)
-    Zabbix agent 2 5.0 (tags: alpine-5.0-latest, ubuntu-5.0-latest, ol-5.0-latest)
-    Zabbix agent 2 5.0.* (tags: alpine-5.0.*, ubuntu-5.0.*, ol-5.0.*)
-    Zabbix agent 2 5.2 (tags: alpine-5.2-latest, ubuntu-5.2-latest, ol-5.2-latest)
-    Zabbix agent 2 5.2.* (tags: alpine-5.2.*, ubuntu-5.2.*, ol-5.2.*)
-    Zabbix agent 2 5.4 (tags: alpine-5.4-latest, ubuntu-5.4-latest, ol-5.4-latest, alpine-latest, ubuntu-latest, ol-latest, latest)
-    Zabbix agent 2 5.4.* (tags: alpine-5.4.*, ubuntu-5.4.*, ol-5.4.*)
-    Zabbix agent 2 6.0 (tags: alpine-trunk, ubuntu-trunk, ol-trunk)
+    Zabbix agent 3.0 (tags: alpine-3.0-latest, ubuntu-3.0-latest, centos-3.0-latest) (unsupported)
+    Zabbix agent 3.0.* (tags: alpine-3.0.*, ubuntu-3.0.*, centos-3.0.*) (unsupported)
+    Zabbix agent 3.2 (tags: alpine-3.2-latest, ubuntu-3.2-latest, centos-3.2-latest) (unsupported)
+    Zabbix agent 3.2.* (tags: alpine-3.2.*, ubuntu-3.2.*, centos-3.2.*) (unsupported)
+    Zabbix agent 3.4 (tags: alpine-3.4-latest, ubuntu-3.4-latest, centos-3.4-latest) (unsupported)
+    Zabbix agent 3.4.* (tags: alpine-3.4.*, ubuntu-3.4.*, centos-3.4.*) (unsupported)
+    Zabbix agent 4.0 (tags: alpine-4.0-latest, ubuntu-4.0-latest, centos-4.0-latest)
+    Zabbix agent 4.0.* (tags: alpine-4.0.*, ubuntu-4.0.*, centos-4.0.*)
+    Zabbix agent 4.2 (tags: alpine-4.2-latest, ubuntu-4.2-latest, centos-4.2-latest) (unsupported)
+    Zabbix agent 4.2.* (tags: alpine-4.2.*, ubuntu-4.2.*, centos-4.2.*) (unsupported)
+    Zabbix agent 4.4 (tags: alpine-4.4-latest, ubuntu-4.4-latest, centos-4.4-latest) (unsupported)
+    Zabbix agent 4.4.* (tags: alpine-4.4.*, ubuntu-4.4.*, centos-4.4.*) (unsupported)
+    Zabbix agent 5.0 (tags: alpine-5.0-latest, ubuntu-5.0-latest, ol-5.0-latest)
+    Zabbix agent 5.0.* (tags: alpine-5.0.*, ubuntu-5.0.*, ol-5.0.*)
+    Zabbix agent 5.2 (tags: alpine-5.2-latest, ubuntu-5.2-latest, ol-5.2-latest)
+    Zabbix agent 5.2.* (tags: alpine-5.2.*, ubuntu-5.2.*, ol-5.2.*)
+    Zabbix agent 5.4 (tags: alpine-5.4-latest, ubuntu-5.4-latest, ol-5.4-latest, alpine-latest, ubuntu-latest, ol-latest, latest)
+    Zabbix agent 5.4.* (tags: alpine-5.4.*, ubuntu-5.4.*, ol-5.4.*)
+    Zabbix agent 6.0 (tags: alpine-trunk, ubuntu-trunk, ol-trunk)
 
 Images are updated when new releases are published. The image with ``latest`` tag is based on Alpine Linux.
 
 # How to use this image
 
-## Start `zabbix-agent2`
+## Start `zabbix-agent`
 
-Start a Zabbix agent 2 container as follows:
+Start a Zabbix agent container as follows:
 
-    docker run --name some-zabbix-agent -e ZBX_HOSTNAME="some-hostname" -e ZBX_SERVER_HOST="some-zabbix-server" -d zabbix/zabbix-agent2:tag
+    docker run --name some-zabbix-agent -e ZBX_HOSTNAME="some-hostname" -e ZBX_SERVER_HOST="some-zabbix-server" -d zabbix/zabbix-agent:tag
 
-Where `some-zabbix-agent2` is the name you want to assign to your container, `some-hostname` is the hostname, it is Hostname parameter in Zabbix agent 2 configuration file, `some-zabbix-server` is IP or DNS name of Zabbix server or proxy and `tag` is the tag specifying the version you want. See the list above for relevant tags, or look at the [full list of tags](https://hub.docker.com/r/zabbix/zabbix-agent2/tags/).
+Where `some-zabbix-agent` is the name you want to assign to your container, `some-hostname` is the hostname, it is Hostname parameter in Zabbix agent configuration file, `some-zabbix-server` is IP or DNS name of Zabbix server or proxy and `tag` is the tag specifying the version you want. See the list above for relevant tags, or look at the [full list of tags](https://hub.docker.com/r/zabbix/zabbix-agent/tags/).
 
 ## Connects from Zabbix server or Zabbix proxy in other containers (Passive checks)
 
-This image exposes the standard Zabbix agent 2 port (``10050``) to perform passive checks, so container linking makes Zabbix agent 2 instance available to Zabbix server and Zabbix proxy containers. Start your application container like this in order to link it to the Zabbix agent 2 container:
+This image exposes the standard Zabbix agent port (``10050``) to perform passive checks, so container linking makes Zabbix agent instance available to Zabbix server and Zabbix proxy containers. Start your application container like this in order to link it to the Zabbix agent container:
 
 ```console
-$ docker run --name some-zabbix-server --link some-zabbix-agent:zabbix-agent2 -d zabbix/zabbix-server:latest
+$ docker run --name some-zabbix-server --link some-zabbix-agent:zabbix-agent -d zabbix/zabbix-server:latest
 ```
 
 ## Connect to Zabbix server or Zabbix proxy containers (Active checks)
 
-This image supports perform active checks, so container linking makes Zabbix server and Zabbix proxy containers available to Zabbix agent 2 instance. Start your application container like this in order to link Zabbix agent 2 to Zabbix server or Zabbix proxy containterns:
+This image supports perform active checks, so container linking makes Zabbix server and Zabbix proxy containers available to Zabbix agent instance. Start your application container like this in order to link Zabbix agent to Zabbix server or Zabbix proxy containterns:
 
 ```console
-$ docker run --name some-zabbix-agent --link some-zabbix-server:zabbix-server -d zabbix/zabbix-agent2:latest
+$ docker run --name some-zabbix-agent --link some-zabbix-server:zabbix-server -d zabbix/zabbix-agent:latest
 ```
 
-## Container shell access and viewing Zabbix agent 2 logs
+## Container shell access and viewing Zabbix agent logs
 
-The `docker exec` command allows you to run commands inside a Docker container. The following command line will give you a bash shell inside your `zabbix-agent2` container:
+The `docker exec` command allows you to run commands inside a Docker container. The following command line will give you a bash shell inside your `zabbix-agent` container:
 
 ```console
 $ docker exec -ti some-zabbix-agent /bin/bash
 ```
 
-The Zabbix agent 2 log is available through Docker's container log:
+The Zabbix agent log is available through Docker's container log:
 
 ```console
 $ docker logs some-zabbix-agent
@@ -70,26 +80,26 @@ $ docker logs some-zabbix-agent
 
 ## Privileged mode
 
-By default, Docker containers are "unprivileged" and do not have access to the most of host resources. Zabbix agent 2 is designed to monitor system resources, to do that Zabbix agent 2 container must be privileged or you may mount some system-wide volumes. For example:
+By default, Docker containers are "unprivileged" and do not have access to the most of host resources. Zabbix agent is designed to monitor system resources, to do that Zabbix agent container must be privileged or you may mount some system-wide volumes. For example:
 
 ```console
-$ docker run --name some-zabbix-agent --link some-zabbix-server:zabbix-server --privileged -d zabbix/zabbix-agent2:latest
+$ docker run --name some-zabbix-agent --link some-zabbix-server:zabbix-server --privileged -d zabbix/zabbix-agent:latest
 ```
 ```console
-$ docker run --name some-zabbix-agent --link some-zabbix-server:zabbix-server -v /dev/sdc:/dev/sdc -d zabbix/zabbix-agent2:latest
+$ docker run --name some-zabbix-agent --link some-zabbix-server:zabbix-server -v /dev/sdc:/dev/sdc -d zabbix/zabbix-agent:latest
 ```
 
 ## Environment Variables
 
-When you start the `zabbix-agent2` image, you can adjust the configuration of the Zabbix agent 2 by passing one or more environment variables on the `docker run` command line.
+When you start the `zabbix-agent` image, you can adjust the configuration of the Zabbix agent by passing one or more environment variables on the `docker run` command line.
 
 ### `ZBX_HOSTNAME`
 
-This variable is unique, case sensitive hostname. By default, value is `hostname` of the container. It is ``Hostname`` parameter in ``zabbix_agent2.conf``.
+This variable is unique, case sensitive hostname. By default, value is `hostname` of the container. It is ``Hostname`` parameter in ``zabbix_agentd.conf``.
 
 ### `ZBX_SERVER_HOST`
 
-This variable is IP or DNS name of Zabbix server or Zabbix proxy. By default, value is `zabbix-server`. It is ``Server`` parameter in ``zabbix_agent2.conf``. It is allowed to specify Zabbix server or Zabbix proxy port number using ``ZBX_SERVER_PORT`` variable. It make sense in case of non-default port for active checks.
+This variable is IP or DNS name of Zabbix server or Zabbix proxy. By default, value is `zabbix-server`. It is ``Server`` parameter in ``zabbix_agentd.conf``. It is allowed to specify Zabbix server or Zabbix proxy port number using ``ZBX_SERVER_PORT`` variable. It make sense in case of non-default port for active checks.
 
 ### `ZBX_PASSIVE_ALLOW`
 
@@ -97,7 +107,7 @@ This variable is boolean (``true`` or ``false``) and enables or disables feature
 
 ### `ZBX_PASSIVESERVERS`
 
-The variable is comma separated list of allowed Zabbix server or proxy hosts for connections to Zabbix agent 2 container.
+The variable is comma separated list of allowed Zabbix server or proxy hosts for connections to Zabbix agent container.
 
 ### `ZBX_ACTIVE_ALLOW`
 
@@ -105,11 +115,15 @@ This variable is boolean (``true`` or ``false``) and enables or disables feature
 
 ### `ZBX_ACTIVESERVERS`
 
-The variable is comma separated list of allowed Zabbix server or proxy hosts for connections to Zabbix agent 2 container. You may specify port of Zabbix server or Zabbix proxy in such syntax: ``zabbix-server:10061,zabbix-proxy:10072``.
+The variable is comma separated list of allowed Zabbix server or proxy hosts for connections to Zabbix agent container. You may specify port of Zabbix server or Zabbix proxy in such syntax: ``zabbix-server:10061,zabbix-proxy:10072``.
+
+### `ZBX_LOADMODULE`
+
+The variable is list of comma separated loadable Zabbix modules. It works with  volume ``/var/lib/zabbix/modules``. The syntax of the variable is ``dummy1.so,dummy2.so``.
 
 ### `ZBX_DEBUGLEVEL`
 
-The variable is used to specify debug level. By default, value is ``3``. It is ``DebugLevel`` parameter in ``zabbix_agent2.conf``. Allowed values are listed below:
+The variable is used to specify debug level. By default, value is ``3``. It is ``DebugLevel`` parameter in ``zabbix_agentd.conf``. Allowed values are listed below:
 - ``0`` - basic information about starting and stopping of Zabbix processes;
 - ``1`` - critical information
 - ``2`` - error information
@@ -126,12 +140,11 @@ The variable is used to specify timeout for processing checks. By default, value
 Additionally the image allows to specify many other environment variables listed below:
 
 ```
-ZBX_ENABLEPERSISTENTBUFFER=false # Available since 5.0.0
-ZBX_PERSISTENTBUFFERPERIOD=1h # Available since 5.0.0
-ZBX_ENABLESTATUSPORT=
 ZBX_SOURCEIP=
 ZBX_ENABLEREMOTECOMMANDS=0 # Deprecated since 5.0.0
 ZBX_LOGREMOTECOMMANDS=0
+ZBX_HOSTINTERFACE= # Available since 4.4.0
+ZBX_HOSTINTERFACEITEM= # Available since 4.4.0
 ZBX_STARTAGENTS=3
 ZBX_HOSTNAMEITEM=system.hostname
 ZBX_METADATA=
@@ -152,35 +165,41 @@ ZBX_TLSCERTFILE=
 ZBX_TLSKEYFILE=
 ZBX_TLSPSKIDENTITY=
 ZBX_TLSPSKFILE=
+ZBX_TLSCIPHERALL= # Available since 4.4.7
+ZBX_TLSCIPHERALL13= # Available since 4.4.7
+ZBX_TLSCIPHERCERT= # Available since 4.4.7
+ZBX_TLSCIPHERCERT13= # Available since 4.4.7
+ZBX_TLSCIPHERPSK= # Available since 4.4.7
+ZBX_TLSCIPHERPSK13= # Available since 4.4.7
 ZBX_DENYKEY=system.run[*] # Available since 5.0.0
 ZBX_ALLOWKEY= # Available since 5.0.0
 ```
 
 Default values of these variables are specified after equal sign.
 
-The allowed variables are identical of parameters in official ``zabbix_agent2.conf`` configuration file. For example, ``ZBX_REFRESHACTIVECHECKS`` = ``RefreshActiveChecks``.
+The allowed variables are identical of parameters in official ``zabbix_agentd.conf`` configuration file. For example, ``ZBX_REFRESHACTIVECHECKS`` = ``RefreshActiveChecks``.
 
-Please use official documentation for [``zabbix_agent2.conf``](https://www.zabbix.com/documentation/current/manual/appendix/config/zabbix_agent2) to get more information about the variables.
+Please use official documentation for [``zabbix_agentd.conf``](https://www.zabbix.com/documentation/current/manual/appendix/config/zabbix_agentd) to get more information about the variables.
 
-## Allowed volumes for the Zabbix agent 2 container
+## Allowed volumes for the Zabbix agent container
 
 ### ``/etc/zabbix/zabbix_agentd.d``
 
-The volume allows include ``*.conf`` files and extend Zabbix agent 2 using ``UserParameter`` feature.
+The volume allows include ``*.conf`` files and extend Zabbix agent using ``UserParameter`` feature.
+
+### ``/var/lib/zabbix/modules``
+
+The volume allows load additional modules and extend Zabbix agent using ``LoadModule`` feature.
 
 ### ``/var/lib/zabbix/enc``
 
 The volume is used to store TLS related files. These file names are specified using ``ZBX_TLSCAFILE``, ``ZBX_TLSCRLFILE``, ``ZBX_TLSKEY_FILE`` and ``ZBX_TLSPSKFILE`` variables.
 
-### ``/var/lib/zabbix/buffer``
-
-The volume is used to store the file, where Zabbix Agent2 should keep SQLite database. To enable the feature specify ``ZBX_ENABLEPERSISTENTBUFFER=true``. Available since 5.0.0.
-
 # The image variants
 
-The `zabbix-agent2` images come in many flavors, each designed for a specific use case.
+The `zabbix-agent` images come in many flavors, each designed for a specific use case.
 
-## `zabbix-agent2:alpine-<version>`
+## `zabbix-agent:alpine-<version>`
 
 This image is based on the popular [Alpine Linux project](http://alpinelinux.org), available in [the `alpine` official image](https://hub.docker.com/_/alpine). Alpine Linux is much smaller than most distribution base images (~5MB), and thus leads to much slimmer images in general.
 
@@ -208,7 +227,7 @@ Please see [the Docker installation documentation](https://docs.docker.com/insta
 
 ## Documentation
 
-Documentation for this image is stored in the [`agent2/` directory](https://github.com/zabbix/zabbix-docker/tree/5.0/agent2) of the [`zabbix/zabbix-docker` GitHub repo](https://github.com/zabbix/zabbix-docker/). Be sure to familiarize yourself with the [repository's `README.md` file](https://github.com/zabbix/zabbix-docker/blob/master/README.md) before attempting a pull request.
+Documentation for this image is stored in the [`agent/` directory](https://github.com/zabbix/zabbix-docker/tree/3.0/agent) of the [`zabbix/zabbix-docker` GitHub repo](https://github.com/zabbix/zabbix-docker/). Be sure to familiarize yourself with the [repository's `README.md` file](https://github.com/zabbix/zabbix-docker/blob/master/README.md) before attempting a pull request.
 
 ## Issues
 

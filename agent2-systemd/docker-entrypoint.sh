@@ -114,7 +114,7 @@ update_config_multiple_var() {
 
 prepare_zbx_agent_config() {
     echo "** Preparing Zabbix agent configuration file"
-    ZBX_AGENT_CONFIG=$ZABBIX_ETC_DIR/zabbix_agent2.conf
+    ZBX_AGENT_CONFIG=$ZABBIX_ETC_DIR/zabbix_agentd.conf
 
     : ${ZBX_PASSIVESERVERS:=""}
     : ${ZBX_ACTIVESERVERS:=""}
@@ -145,6 +145,7 @@ prepare_zbx_agent_config() {
 
     update_config_var $ZBX_AGENT_CONFIG "ListenPort" "${ZBX_LISTENPORT}"
     update_config_var $ZBX_AGENT_CONFIG "ListenIP" "${ZBX_LISTENIP}"
+    update_config_var $ZBX_AGENT_CONFIG "StartAgents" "${ZBX_STARTAGENTS}"
 
     : ${ZBX_ACTIVE_ALLOW:="true"}
     if [ "${ZBX_ACTIVE_ALLOW,,}" == "true" ]; then
@@ -154,20 +155,8 @@ prepare_zbx_agent_config() {
         update_config_var $ZBX_AGENT_CONFIG "ServerActive"
     fi
 
-    if [ "${ZBX_ENABLEPERSISTENTBUFFER,,}" == "true" ]; then
-        update_config_var $ZBX_AGENT_CONFIG "EnablePersistentBuffer" "1"
-        update_config_var $ZBX_AGENT_CONFIG "PersistentBufferFile" "$ZABBIX_USER_HOME_DIR/buffer/"
-        update_config_var $ZBX_AGENT_CONFIG "PersistentBufferPeriod" "${ZBX_PERSISTENTBUFFERPERIOD}"
-    else
-        update_config_var $ZBX_AGENT_CONFIG "EnablePersistentBuffer" "0"
-    fi
-
-    if [ "${ZBX_ENABLESTATUSPORT,,}" == "true" ]; then
-        update_config_var $ZBX_AGENT_CONFIG "StatusPort" "31999"
-    fi
-
-#    update_config_var $ZBX_AGENT_CONFIG "HostInterface" "${ZBX_HOSTINTERFACE}"
-#    update_config_var $ZBX_AGENT_CONFIG "HostInterfaceItem" "${ZBX_HOSTINTERFACEITEM}"
+    update_config_var $ZBX_AGENT_CONFIG "HostInterface" "${ZBX_HOSTINTERFACE}"
+    update_config_var $ZBX_AGENT_CONFIG "HostInterfaceItem" "${ZBX_HOSTINTERFACEITEM}"
 
     update_config_var $ZBX_AGENT_CONFIG "Hostname" "${ZBX_HOSTNAME}"
     update_config_var $ZBX_AGENT_CONFIG "HostnameItem" "${ZBX_HOSTNAMEITEM}"
@@ -182,6 +171,8 @@ prepare_zbx_agent_config() {
     update_config_var $ZBX_AGENT_CONFIG "Timeout" "${ZBX_TIMEOUT}"
     update_config_var $ZBX_AGENT_CONFIG "Include" "/etc/zabbix/zabbix_agentd.d/"
     update_config_var $ZBX_AGENT_CONFIG "UnsafeUserParameters" "${ZBX_UNSAFEUSERPARAMETERS}"
+    update_config_var $ZBX_AGENT_CONFIG "LoadModulePath" "$ZABBIX_USER_HOME_DIR/modules/"
+    update_config_multiple_var $ZBX_AGENT_CONFIG "LoadModule" "${ZBX_LOADMODULE}"
     update_config_var $ZBX_AGENT_CONFIG "TLSConnect" "${ZBX_TLSCONNECT}"
     update_config_var $ZBX_AGENT_CONFIG "TLSAccept" "${ZBX_TLSACCEPT}"
     update_config_var $ZBX_AGENT_CONFIG "TLSCAFile" "${ZBX_TLSCAFILE}"
@@ -189,12 +180,24 @@ prepare_zbx_agent_config() {
     update_config_var $ZBX_AGENT_CONFIG "TLSServerCertIssuer" "${ZBX_TLSSERVERCERTISSUER}"
     update_config_var $ZBX_AGENT_CONFIG "TLSServerCertSubject" "${ZBX_TLSSERVERCERTSUBJECT}"
     update_config_var $ZBX_AGENT_CONFIG "TLSCertFile" "${ZBX_TLSCERTFILE}"
+    update_config_var $ZBX_AGENT_CONFIG "TLSCipherAll" "${ZBX_TLSCIPHERALL}"
+    update_config_var $ZBX_AGENT_CONFIG "TLSCipherAll13" "${ZBX_TLSCIPHERALL13}"
+    update_config_var $ZBX_AGENT_CONFIG "TLSCipherCert" "${ZBX_TLSCIPHERCERT}"
+    update_config_var $ZBX_AGENT_CONFIG "TLSCipherCert13" "${ZBX_TLSCIPHERCERT13}"
+    update_config_var $ZBX_AGENT_CONFIG "TLSCipherPSK" "${ZBX_TLSCIPHERPSK}"
+    update_config_var $ZBX_AGENT_CONFIG "TLSCipherPSK13" "${ZBX_TLSCIPHERPSK13}"
     update_config_var $ZBX_AGENT_CONFIG "TLSKeyFile" "${ZBX_TLSKEYFILE}"
     update_config_var $ZBX_AGENT_CONFIG "TLSPSKIdentity" "${ZBX_TLSPSKIDENTITY}"
     update_config_var $ZBX_AGENT_CONFIG "TLSPSKFile" "${ZBX_TLSPSKFILE}"
 
     update_config_multiple_var $ZBX_AGENT_CONFIG "DenyKey" "${ZBX_DENYKEY}"
     update_config_multiple_var $ZBX_AGENT_CONFIG "AllowKey" "${ZBX_ALLOWKEY}"
+
+    if [ "$(id -u)" != '0' ]; then
+        update_config_var $ZBX_AGENT_CONFIG "User" "$(whoami)"
+    else
+        update_config_var $ZBX_AGENT_CONFIG "AllowRoot" "1"
+    fi
 }
 
 prepare_agent() {
@@ -205,10 +208,10 @@ prepare_agent() {
 #################################################
 
 if [ "${1#-}" != "$1" ]; then
-    set -- /usr/sbin/zabbix_agent2 "$@"
+    set -- /usr/sbin/zabbix_agentd "$@"
 fi
 
-if [ "$1" == '/usr/sbin/zabbix_agent2' ]; then
+if [ "$1" == '/usr/sbin/zabbix_agentd' ]; then
     prepare_agent
 fi
 
