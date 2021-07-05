@@ -82,6 +82,7 @@ RUN set -eux && \
             automake \
             pcre-devel \
             libcurl-devel \
+            golang \
             make \
             openssl-devel \
             openldap-devel \
@@ -91,23 +92,21 @@ RUN set -eux && \
     git -c advice.detachedHead=false clone ${ZBX_SOURCES} --branch master --depth 1 --single-branch zabbix-${ZBX_VERSION} && \
     cd /tmp/zabbix-${ZBX_VERSION} && \
     zabbix_revision=`git rev-parse --short HEAD` && \
-    sed -i "s/{ZABBIX_REVISION}/$zabbix_revision/g" include/version.h && \
+    sed -i "s/{ZABBIX_REVISION}/$zabbix_revision/g" src/go/pkg/version/version.go && \
     ./bootstrap.sh && \
     export CFLAGS="-fPIC -pie -Wl,-z,relro -Wl,-z,now" && \
+    export GOPATH=/tmp/zabbix-${ZBX_VERSION}/go && \
     ./configure \
             --datadir=/usr/lib \
             --libdir=/usr/lib/zabbix \
             --prefix=/usr \
             --sysconfdir=/etc/zabbix \
             --prefix=/usr \
-            --enable-agent2 \
-            --with-libcurl \
-            --with-ldap \
             --with-openssl \
             --enable-ipv6 \
-            --silent && \
+            --enable-agent2 \
     make -j"$(nproc)" -s && \
-    cp /tmp/zabbix-${ZBX_VERSION}/src/zabbix_agent/zabbix_agentd /usr/sbin/zabbix_agentd && \
+    cp /tmp/zabbix-${ZBX_VERSION}/src/zabbix_agent/zabbix_agent2 /usr/sbin/zabbix_agent2 && \
     cp /tmp/zabbix-${ZBX_VERSION}/src/zabbix_get/zabbix_get /usr/bin/zabbix_get && \
     cp /tmp/zabbix-${ZBX_VERSION}/src/zabbix_sender/zabbix_sender /usr/bin/zabbix_sender && \
     cp /tmp/zabbix-${ZBX_VERSION}/conf/zabbix_agentd.conf /etc/zabbix/zabbix_agentd.conf && \
@@ -128,6 +127,8 @@ COPY ["docker-entrypoint.sh", "/usr/bin/"]
 
 ENTRYPOINT ["/sbin/tini", "--", "/usr/bin/docker-entrypoint.sh"]
 
+USER 1997
 
 CMD ["/usr/sbin/init"]
 
+CMD ["/usr/sbin/zabbix_agentd", "--foreground", "-c", "/etc/zabbix/zabbix_agentd.conf"]
