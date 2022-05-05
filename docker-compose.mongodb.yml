@@ -174,5 +174,5 @@ services:
 
 networks:
   default:
-    external: true
-    name: zabbix_50_default
+    external:
+      name: zabbix_60_default
