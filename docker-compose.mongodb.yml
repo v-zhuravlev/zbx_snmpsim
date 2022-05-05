@@ -161,15 +161,16 @@ services:
   #     - MONGODB_URI=mongodb://router01:27017
   #   ports:
   #     - 9114:9104
-  zabbix-agent:
-    container_name: zabbix-agent
-    image: zabbix/zabbix-agent2:alpine-5.0-latest
+  zabbix-agent2:
+    container_name: zabbix-agent2
+    image: anka13/alpine-agent2:6.0
     user: root
-
-    restart: always
+    volumes:
+      - ./zabbix/zbx_env/etc/zabbix:/etc/zabbix:rw
+      - ./zabbix/zbx_env/var/lib/zabbix/modules:/var/lib/zabbix/modules:ro
     privileged: true
     environment:
-      - ZBX_HOSTNAME=zabbix-agent
+      - ZBX_HOSTNAME=zabbix-agent2
 
 networks:
   default:
