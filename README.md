@@ -14,7 +14,7 @@ This repo provides a quick way to test Zabbix templates using:
 ### Test with bundled Zabbix Server
 
 - run docker-compose to start zabbix-server and snmpsim
-`docker-compose.exe -f .\docker-compose.snmpsim.yml -f .\docker-compose.zabbix.yml up`
+`docker compose -f ./docker-compose.snmpsim.yml -f ./docker-compose.zabbix.yml up`
 - Access Zabbix Frontend on http://localhost
 - Add new host with SNMP interface and use DNS address `snmpsim` to connect, use port 161
 - Add {$SNMP_COMMUNITY} macro with the same value as *.snmprec *.snmpwalk filename
@@ -22,29 +22,10 @@ This repo provides a quick way to test Zabbix templates using:
 ### Test with already existing Zabbix Server
 
 You can also just use snmpsim instance without bundled Zabbix Server and test with your own Zabbix that is up and running somewhere:
-- Start snmpsim only: `docker-compose.exe -f .\docker-compose.snmpsim.yml up`
+- Start snmpsim only: `docker compose -f ./docker-compose.snmpsim.yml up`
 - Access Zabbix Frontend
 - Add new host with SNMP interface and use IP address of the host you are running on, use port 161
 - Add {$SNMP_COMMUNITY} macro with the same value as snmprec/snmpwalk filename
-
-### Some automation
-
-Use bundled python script `create_hosts.py <snmpsim root data dir>` to mass create hosts and attach templates. (Requires py-zabbix, run `pip install py-zabbix` first)  
-For example:
-- `bin/create_hosts.py data` - to create hosts and attach templates for all *snmpwalk, *snmprec files found in the `data` dir.  
-- `bin/create_hosts.py data --filter dlink` - to create host that contains `dlink` in the filename and attach `Template Net D-Link DES_DGS Switch SNMPv2` to them:
-```
-.\bin\create_hosts.py .\data\ --filter dlink
-Found file .\data\net.dlink.DGS-3627G.snmpwalk...
-Going to create host "net.dlink.DGS-3627G" with templates "[{'name': 'Template Net D-Link DES_DGS Switch SNMPv2', 'templateid': 10223}]" attached
-Found file .\data\net.dlink.des3200.snmprec...
-Going to create host "net.dlink.des3200" with templates "[{'name': 'Template Net D-Link DES_DGS Switch SNMPv2', 'templateid': 10223}]" attached
-Found file .\data\net.dlink.dgs-3420-26sc.snmpwalk...
-Going to create host "net.dlink.dgs-3420-26sc" with templates "[{'name': 'Template Net D-Link DES_DGS Switch SNMPv2', 'templateid': 10223}]" attached
-```
-- `bin/create_hosts.py --api_url http://myzabbix.local/api_jsonrpc.php --username=myuser --password mypassword data --snmpsim-ip=192.168.3.4` to create snmpsim hosts on the other Zabbix Server.  
-Note that you need to provide *root* snmpsim directory that you mount into snmpsim, do not provide subdirs in the snmpsim data tree - otherwise {$SNMP_COMMUNITY} macro value would be wrong!  
-See `--help` for usage.
 
 ### Test with snmpwalk
 
@@ -75,3 +56,22 @@ where community can be found by running:
 ```
 $ snmpwalk -c index -v 2c localhost .1.3
 ```
+
+### Zabbix automation
+
+Use bundled python script `create_hosts.py <snmpsim root data dir>` to mass create hosts and attach templates. (Requires py-zabbix, run `pip install py-zabbix` first)  
+For example:
+- `bin/create_hosts.py data` - to create hosts and attach templates for all *snmpwalk, *snmprec files found in the `data` dir.  
+- `bin/create_hosts.py data --filter dlink` - to create host that contains `dlink` in the filename and attach `Template Net D-Link DES_DGS Switch SNMPv2` to them:
+```
+./bin/create_hosts.py ./data/ --filter dlink
+Found file ./data/net.dlink.DGS-3627G.snmpwalk...
+Going to create host "net.dlink.DGS-3627G" with templates "[{'name': 'Template Net D-Link DES_DGS Switch SNMPv2', 'templateid': 10223}]" attached
+Found file ./data/net.dlink.des3200.snmprec...
+Going to create host "net.dlink.des3200" with templates "[{'name': 'Template Net D-Link DES_DGS Switch SNMPv2', 'templateid': 10223}]" attached
+Found file ./data/net.dlink.dgs-3420-26sc.snmpwalk...
+Going to create host "net.dlink.dgs-3420-26sc" with templates "[{'name': 'Template Net D-Link DES_DGS Switch SNMPv2', 'templateid': 10223}]" attached
+```
+- `bin/create_hosts.py --api_url http://myzabbix.local/api_jsonrpc.php --username=myuser --password mypassword data --snmpsim-ip=192.168.3.4` to create snmpsim hosts on the other Zabbix Server.  
+Note that you need to provide *root* snmpsim directory that you mount into snmpsim, do not provide subdirs in the snmpsim data tree - otherwise {$SNMP_COMMUNITY} macro value would be wrong!  
+See `--help` for usage.
